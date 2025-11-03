@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+{%load static%}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modernize Free</title>
+
+
+  <!-- Favicon -->
+<link rel="shortcut icon" type="image/png" href="{% static 'plantilla/admin/src/assets/images/logos/favicon.png' %}" />
+
+<!-- CSS principal -->
+<link rel="stylesheet" href="{% static 'plantilla/admin/src/assets/css/styles.min.css' %}" />
+
+</head>
+
+<body>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <div
+      class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
+      <div class="d-flex align-items-center justify-content-center w-100">
+        <div class="row justify-content-center w-100">
+          <div class="col-md-8 col-lg-6 col-xxl-3">
+            <div class="card mb-0">
+              <div class="card-body">
+                <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                  <img src="../assets/images/logos/dark-logo.svg" width="180" alt="">
+                </a>
+                <p class="text-center">Patitas Amigables</p>
+
+
+            <form method="post" action="/registerNewUser">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="first_name" class="form-label">Nombres</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="last_name" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Número de Celular</label>
+                    <input type="text" class="form-control" id="phone" name="telefono" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="address" name="direccion">
+                </div>
+
+                <div class="mb-3">
+                    <label for="username" class="form-label">Nombre de Usuario</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password2" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" class="form-control" id="password2" name="password2" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="role" class="form-label">Rol</label>
+                    <select class="form-select" id="role" name="role" required>
+                        <option value="adopter" selected>Adoptante</option>
+                        <option value="owner">Dueño</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 fs-4 mb-4 rounded-2">Registrarse</button>
+
+                <p class="text-center">
+                    ¿Ya tienes cuenta? <a href="/iniciarSesion" class="text-primary">Iniciar Sesión</a>
+                </p>
+            </form>
+
+
+                <div class="d-flex align-items-center justify-content-center">
+                    <p class="fs-4 mb-0 fw-bold">!Ya tienes una cuenta¡</p>
+                    <a class="text-primary fw-bold ms-2" href="/iniciarSesion">Iniciar Sesion</a>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- JS principales -->
+<script src="{% static 'plantilla/admin/src/assets/libs/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'plantilla/admin/src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+
+</html>
