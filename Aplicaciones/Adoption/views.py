@@ -13,7 +13,18 @@ def iniciarSesion(request):
     return render(request,"login/login.html")
 
 def adoptions(request):
-    return render(request,"adoptions/index.html")
+    
+    pets= Pet.objects.filter(status='available')
+    publications=[]
+    for pet in pets:
+        image_path=PetPhoto.objects.filter(pet=pet)
+        publications.append({
+            'pet':pet,
+            'image_path':image_path
+        })
+            
+        
+    return render (request,'adoptions/index.html',{'publications':publications})
 
 def registerUser(request):
     return render(request,"login/register_user.html")
@@ -149,4 +160,26 @@ def savePublication(request):
     else:
         return redirect('/iniciarSesion')
     
+def listAllPetsAdoption (request):
+        #user= request.user.id
+    pets= Pet.objects.filter(status='available')
+    publications=[]
+    for pet in pets:
+        image_path=PetPhoto.objects.filter(pet=pet)
+        publications.append({
+            'pet':pet,
+            'image_path':image_path
+        })
+            
+        
+    return render (request,'adoptions/index.html',{'publications':publications})
+        
     
+    
+
+def listAllMyPetsAdoption(request):
+    
+    if request.user.is_authenticated:
+        user= request.user.id
+    else:
+        return redirect('/')
