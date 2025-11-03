@@ -17,7 +17,7 @@ def adoptions(request):
     pets= Pet.objects.filter(status='available')
     publications=[]
     for pet in pets:
-        image_path=PetPhoto.objects.filter(pet=pet)
+        image_path=PetPhoto.objects.filter(pet=pet).order_by('order').first()
         publications.append({
             'pet':pet,
             'image_path':image_path
@@ -148,38 +148,40 @@ def savePublication(request):
         user.role = 'owner'
         user.save()
     
-        for photo in image_path:
+        for index,photo in enumerate(image_path,start=1):
             PetPhoto.objects.create(
                 image_path=photo,
-                pet =pet                
+                pet =pet,
+                order=index
+                     
             )
+            
+            
             
         messages.success(request,"Mascota registrada correctamente")
         return redirect('/')
         
     else:
         return redirect('/iniciarSesion')
-    
-def listAllPetsAdoption (request):
-        #user= request.user.id
-    pets= Pet.objects.filter(status='available')
-    publications=[]
-    for pet in pets:
-        image_path=PetPhoto.objects.filter(pet=pet)
-        publications.append({
-            'pet':pet,
-            'image_path':image_path
-        })
-            
-        
-    return render (request,'adoptions/index.html',{'publications':publications})
-        
-    
+
     
 
-def listAllMyPetsAdoption(request):
     
+
+def misPublicaciones(request):
     if request.user.is_authenticated:
-        user= request.user.id
+        user_id = request.user.id
+        pets= Pet.objects.filter(publisher_id=user_id)
+        publications=[]
+        for pet in pets:
+            image_path=PetPhoto.objects.filter(pet=pet).order_by('order').first()
+            publications.append({
+                'pet':pet,
+                'image_path':image_path
+            })
+                
+            
+        return render (request,'adoptions/myPublications.html',{'publications':publications})
+    
     else:
-        return redirect('/')
+        return redirect('/iniciarSesion')

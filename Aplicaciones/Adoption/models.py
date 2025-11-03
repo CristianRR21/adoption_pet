@@ -30,6 +30,7 @@ class Pet(models.Model):
 class PetPhoto(models.Model):
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     image_path = models.ImageField(upload_to='pets')
+    order = models.IntegerField(default=0)
 
     def __str__(self):
         return f"Photo of {self.pet.name}"

@@ -10,6 +10,8 @@ urlpatterns = [
     path('nuevaAdopcion',views.nuevaAdopcion),
     path('nuevaPublicacion',views.nuevaPublicacion),
     path('savePublication',views.savePublication),
+    path('misPublicaciones',views.misPublicaciones),
+    
     
     
     
