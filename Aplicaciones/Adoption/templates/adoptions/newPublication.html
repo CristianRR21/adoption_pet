@@ -1,0 +1,96 @@
+
+{% extends "adoptions/plantilla.html" %}
+{% block contenido %}
+<label for="">DAR EN ADOPCION UN ANIMAL</label>
+<small>Llene el sigueitne formulario</small>
+<form action="savePublication" method="post" >
+
+    <div class="row">
+
+        <div class="col md-12">
+            <label for="">Seleccione las fotografias(maximo 5)</label>
+            <input type="file" name="image_path" id="image_path">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col md-6">
+
+             <div class="form-group">
+        <label for="">Nombre de la mascota</label>
+        <input type="text" name="name" id="name" class="form-control">
+    </div>
+        </div>
+        <div class="col md-6">
+
+             <div class="form-group">
+        <label for="">Tipo de mascota</label>
+        <select name="species" id="species">
+            <option value="">--Seleccione una opcion--</option>
+            <option value="feline">Felino</option>
+            <option value="canine">Canino</option>            
+        </select>
+    </div>
+        </div>
+    </div>
+   
+<div class="row">
+    <div class="col md-6">
+
+
+    <div class="form-group">
+        <label for="">Raza de la mascota</label>
+        <input type="text" name="breed" id="breed" class="form-control">
+    </div>
+
+    </div>
+
+    <div class="col md-6">
+             
+        <div class="form-group">
+        <label for="">Edad</label>
+        <input type="text" name="age" id="age" class="form-control">
+    </div>
+    </div>
+
+</div>
+
+ 
+
+
+<div class="row">
+    <div class="col md-6">
+
+         <div class="form-group">
+        <label for="">Color</label>
+        <input type="text" name="color" id="color" class="form-control">
+    </div>
+
+    </div>
+
+    <div class="col md-6">
+
+          <div class="form-group">
+        <label for="">Descripcion</label>
+        <input type="text" name="description" id="description" class="form-control">
+    </div>
+        
+    </div>
+</div>
+   
+
+
+  
+<div class="row" style="text-align: center;">
+    <div class="form-group">
+
+        <button type="submit" class="btn btn-success">
+            Guardar
+        </button>
+
+        <a href="/" class="btn btn-danger">Cancelar</a>
+    </div>
+</div>
+
+</form>
+{% endblock %}
