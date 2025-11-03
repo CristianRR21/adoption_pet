@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import login 
+from .models import Pet,PetPhoto
 
 # Create your views here.
 
@@ -65,14 +66,14 @@ def startSesion(request):
 
 def registerNewUser(request):
     if request.method == 'POST': 
-        first_name = request.POST.get('first_name')  
-        last_name = request.POST.get('last_name')    
-        phone = request.POST.get('telefono')
-        address = request.POST.get('direccion')
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        password2 = request.POST.get('password2')
+        first_name = request.POST['first_name']  
+        last_name = request.POST['last_name']    
+        phone = request.POST['telefono']
+        address = request.POST['direccion']
+        email = request.POST['email']
+        username = request.POST['username']
+        password = request.POST['password']
+        password2 = request.POST['password2']
 
         if User.objects.filter(email=email).exists():
                 messages.error(request, "El correo ya está registrado.")
@@ -107,3 +108,45 @@ def nuevaAdopcion(request):
 
 def nuevaPublicacion(request):
     return render(request,'adoptions/newPublication.html')
+
+def savePublication(request):
+    
+    if request.user.is_authenticated:    
+        name=request.POST['name']
+        species=request.POST['species']
+        breed=request.POST['breed']
+        age=request.POST['age']
+        gender=request.POST['gender']
+        color=request.POST['color']
+        description=request.POST['description']
+        image_path= request.FILES.getlist('image_path[]')   
+        publisher_id= request.user.id
+        
+        pet = Pet.objects.create(
+            name=name,
+            species=species,
+            breed=breed,
+            age=age,
+            gender=gender,
+            color=color,
+            description=description,
+            publisher_id=publisher_id
+        )
+        user= User.objects.get(id=request.user.id)
+        user.num_publications +=1
+        user.role = 'owner'
+        user.save()
+    
+        for photo in image_path:
+            PetPhoto.objects.create(
+                image_path=photo,
+                pet =pet                
+            )
+            
+        messages.success(request,"Mascota registrada correctamente")
+        return redirect('/')
+        
+    else:
+        return redirect('/iniciarSesion')
+    
+    

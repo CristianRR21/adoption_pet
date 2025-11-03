@@ -7,7 +7,8 @@ class User(AbstractUser):
     phone = models.CharField(max_length=20, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     photo_path = models.ImageField(upload_to='users', blank=True, null=True)
-    role = models.CharField(max_length=20, default='adopter')  
+    role = models.CharField(max_length=20, default='adopter')
+    num_publications=models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.username} ({self.role})"

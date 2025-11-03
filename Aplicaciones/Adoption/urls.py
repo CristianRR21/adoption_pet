@@ -9,6 +9,7 @@ urlpatterns = [
     path('startSesion',views.startSesion),
     path('nuevaAdopcion',views.nuevaAdopcion),
     path('nuevaPublicacion',views.nuevaPublicacion),
+    path('savePublication',views.savePublication),
     
     
     
