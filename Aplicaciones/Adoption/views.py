@@ -103,7 +103,7 @@ def registerNewUser(request):
 
 
 def nuevaAdopcion(request):
-    return render(request,'adoptions/newAdoptions')
+    return render(request,'adoptions/newAdoptions.html')
 
 def nuevaPublicacion(request):
-    return render(request,'adoptions/newPublication')
+    return render(request,'adoptions/newPublication.html')

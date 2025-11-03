@@ -58,10 +58,10 @@
                                             <li><a href="/">Mascotas en Adopcion</a></li>
 
                                         {% if not request.user.is_authenticated %}
-                                            <li><a href="/iniciarSesion">Adoptar</a></li>
+                                            <li><a href="/iniciarSesion">Adoptar sin sesion</a></li>
 
                                         {% else %}
-                                            <li><a href="/nuevaAdopcion">Adoptar</a></li>
+                                            <li><a href="/nuevaAdopcion">Adoptar con sesion</a></li>
                                         {% endif %}
                                           </div>
 
@@ -69,10 +69,10 @@
 
 
                                         {% if not request.user.is_authenticated %}
-                                            <li><a href="/iniciarSesion">Dar en Adopcion</a></li>
+                                            <li><a href="/iniciarSesion">Dar en Adopcion sin sesion</a></li>
 
                                         {% else %}
-                                            <li><a href="/nuevaPublicacion">Dar en Adopcion</a></li>
+                                            <li><a href="/nuevaPublicacion">Dar en Adopcion con sesion</a></li>
                                         {% endif %}
                                           </div>
 
