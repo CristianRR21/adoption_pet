@@ -16,6 +16,7 @@ urlpatterns = [
     path('eliminarPublicacion/<id>', views.eliminarPublicacion),
     path('cerrarSesion',views.cerrarSesion),
     path('adoptar/<id>/',views.adoptar),
+    path('saveAdoption',views.saveAdoption),
         
 
 ]

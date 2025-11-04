@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import login 
-from .models import Pet,PetPhoto
+from .models import Pet,PetPhoto,Adoption
 from django.contrib.auth import logout
 
 # Create your views here.
@@ -285,3 +285,24 @@ def adoptar(request,id):
     pet = Pet.objects.get(id=id)
     photos = PetPhoto.objects.filter(pet=pet)
     return render(request,'adoptions/newAdoption.html',{'pet':pet,'photos':photos,'user':user})
+
+def saveAdoption(request):
+    if request.user.is_authenticated:    
+        pet_id= request.POST['pet']
+        contract_path = request.FILES.get('contract')  
+        status= 'pending'        
+        adopter_id= request.user.id
+        
+        adoption = Adoption.objects.create(
+            contract_path=contract_path,
+            pet_id=pet_id,
+            adopter_id=adopter_id,
+            status=status
+        ) 
+        messages.success(request, "Su solicitud ha sido enviada correctamente.")    
+        return redirect('/')
+    else:
+        return redirect('/iniciarSesion')
+
+
+

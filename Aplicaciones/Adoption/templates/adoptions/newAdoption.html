@@ -63,12 +63,19 @@
     </div>
     <h4>Contrato de Adopcion</h4>
     <small>*Descargue el siguiente pdf , el mismo que debera subirlo una vez que lo llene*</small>
-       <a href="{{ MEDIA_URL }}adoptions/contrato.pdf" class="btn btn-outline-primary" download>
+  <a href="{{ MEDIA_URL }}adoptions/contrato.pdf" class="btn btn-outline-primary" download>
         📄 Descargar contrato de adopción
-      </a>
-    
-      <input type="file" name="contract_path" id="contract_path">
+      </a>    
+    <form action="/saveAdoption" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
 
+        <input type="hidden" name="pet" id="pet" value="{{pet.id}}">
+        <input type="file" name="contract" id="contract">
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+
+    </form>
 
 
   </div>

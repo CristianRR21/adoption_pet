@@ -41,6 +41,8 @@ class Adoption(models.Model):
     adopter = models.ForeignKey(User, on_delete=models.CASCADE)
     request_date = models.DateField(auto_now_add=True)
     contract_path = models.FileField(upload_to='adoptions', blank=True, null=True)
+    status = models.CharField(max_length=20, default='pending')  
+    
 
     def __str__(self):
         return f"{self.adopter.username} -> {self.pet.name}"
