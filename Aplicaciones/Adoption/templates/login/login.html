@@ -1,114 +1,86 @@
 <!doctype html>
 <html lang="en">
-{%load static%}
-
-
-
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
-  <!-- jQuery Validate -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
-
-  <!-- SweetAlert2 -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-  <!-- DataTables JS -->
-  <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.2.3/js/dataTables.buttons.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.html5.min.js"></script>
-  <script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.print.min.js"></script>
-
-  <!-- Drag & Drop JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/fileinput.min.js" integrity="sha512-0wQvB58Ha5coWmcgtg4f11CTSSxfrfLClUp9Vy0qhzYzCZDSnoB4Vhu5JXJFs7rU24LE6JsH+6hpP7vQ22lk5w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.5.4/js/locales/es.min.js"></script>
-
-  <!-- DataTables español -->
-  <script>
-    DataTable.defaults.language = {
-      url: 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-ES.json'
-    };
-  </script>
-
-
-  <!-- Font Awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
-
-
-
-
-
+{% load static %}
 
 <head>
+  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modernize Free</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>PolluxUI Admin</title>
 
+  <!-- base:css -->
+  <link rel="stylesheet" href="{% static 'plantilla/admin/template/vendors/typicons/typicons.css' %}">
+  <link rel="stylesheet" href="{% static 'plantilla/admin/template/vendors/css/vendor.bundle.base.css' %}">
+  <!-- endinject -->
 
+  <!-- plugin css for this page -->
+  <!-- (Agregar aquí si se necesita algún CSS adicional para esta página) -->
+  <!-- End plugin css for this page -->
 
+  <!-- inject:css -->
+  <link rel="stylesheet" href="{% static 'plantilla/admin/template/css/vertical-layout-light/style.css' %}">
+  <!-- endinject -->
 
-  <!-- Favicon -->
-<link rel="shortcut icon" type="image/png" href="{% static 'plantilla/admin/src/assets/images/logos/favicon.png' %}" />
-
-<!-- CSS principal -->
-<link rel="stylesheet" href="{% static 'plantilla/admin/src/assets/css/styles.min.css' %}" />
-
+  <link rel="shortcut icon" href="{% static 'plantilla/admin/template/images/favicon.png' %}" />
 </head>
 
 <body>
-  <!--  Body Wrapper -->
-  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed">
-    <div
-      class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
-      <div class="d-flex align-items-center justify-content-center w-100">
-        <div class="row justify-content-center w-100">
-          <div class="col-md-8 col-lg-6 col-xxl-3">
-            <div class="card mb-0">
-              <div class="card-body">
-                <a href="./index.html" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                  <img src="../assets/images/logos/dark-logo.svg" width="180" alt="">
-                </a>
-                <p class="text-center">Patitas amigables</p>
-
-                <form method="post" action="/startSesion">
-                  {% csrf_token %}
-
-                  <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Correo Electronico</label>
-                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-                  </div>
-                  <div class="mb-4">
-                    <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password">
-                  </div>
-                
-                  <button  type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">
-                    Iniciar Sesion
-                  </button>
-               
-                </form>
-                   <div class="d-flex align-items-center justify-content-center">
-                    <p class="fs-4 mb-0 fw-bold">Nuevo Usuario</p>
-                    <a class="text-primary fw-bold ms-2" href="/registrarUsuario">Crear una cuenta</a>
-                  </div>
-
-
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo">
+                <img src="{% static 'plantilla/admin/template/images/logo-dark.svg' %}" alt="logo">
               </div>
+
+              <h4>¡Hola! Empecemos</h4>
+              <h6 class="font-weight-light">Inicia sesión para continuar.</h6>
+
+              <form method="post" action="/startSesion">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Correo Electrónico</label>
+                  <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                </div>
+
+                <div class="mb-4">
+                  <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="password" name="password">
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 fs-5 mb-4 rounded-2">
+                  Iniciar Sesión
+                </button>
+              </form>
+
+              <div class="d-flex align-items-center justify-content-center">
+                <p class="fs-5 mb-0 fw-bold">¿Nuevo usuario?</p>
+                <a class="text-primary fw-bold ms-2" href="/registrarUsuario">Crear una cuenta</a>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
+      <!-- content-wrapper ends -->
     </div>
+    <!-- page-body-wrapper ends -->
   </div>
+  <!-- container-scroller -->
 
+  <!-- base:js -->
+  <script src="{% static 'plantilla/admin/template/vendors/js/vendor.bundle.base.js' %}"></script>
+  <!-- endinject -->
 
-<!-- JS principales -->
-<script src="{% static 'plantilla/admin/src/assets/libs/jquery/dist/jquery.min.js' %}"></script>
-<script src="{% static 'plantilla/admin/src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- inject:js -->
+  <script src="{% static 'plantilla/admin/template/js/off-canvas.js' %}"></script>
+  <script src="{% static 'plantilla/admin/template/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'plantilla/admin/template/js/template.js' %}"></script>
+  <script src="{% static 'plantilla/admin/template/js/settings.js' %}"></script>
+  <script src="{% static 'plantilla/admin/template/js/todolist.js' %}"></script>
+  <!-- endinject -->
 </body>
 
 </html>

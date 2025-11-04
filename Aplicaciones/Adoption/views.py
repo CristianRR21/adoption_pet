@@ -7,6 +7,8 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth import login 
 from .models import Pet,PetPhoto,Adoption
 from django.contrib.auth import logout
+import json
+
 
 # Create your views here.
 
@@ -31,7 +33,46 @@ def registerUser(request):
     return render(request,"login/register_user.html")
 
 def administrador(request):
-    return render(request,"administrator/index.html")
+    
+       
+    total_usuarios = User.objects.count()
+    total_adoptantes = User.objects.filter(role='adopter').count()
+    total_publicadores = User.objects.filter(role='publisher').count()
+    
+    
+    
+    total_mascotas = Pet.objects.count()
+    disponibles = Pet.objects.filter(status='available').count()
+    adoptadas = Pet.objects.filter(status='unavailable').count()
+    
+    total_adopciones = Adoption.objects.count()
+    pendientes = Adoption.objects.filter(status='pending').count()
+    aprobadas = Adoption.objects.filter(status='approved').count()
+    rechazadas = Adoption.objects.filter(status='rejected').count()
+    
+    grafico_usuarios = [total_adoptantes, total_publicadores]
+    grafico_mascotas = [disponibles, adoptadas]
+    grafico_adopciones = [pendientes, aprobadas, rechazadas]
+    
+    context = {
+        'total_usuarios': total_usuarios,
+        'total_adoptantes': total_adoptantes,
+        'total_publicadores': total_publicadores,
+        'total_mascotas': total_mascotas,
+        'disponibles': disponibles,
+        'adoptadas': adoptadas,
+        'total_adopciones': total_adopciones,
+        'pendientes': pendientes,
+        'aprobadas': aprobadas,
+        'rechazadas': rechazadas,
+        'grafico_usuarios_json': json.dumps(grafico_usuarios),
+        'grafico_mascotas_json': json.dumps(grafico_mascotas),
+        'grafico_adopciones_json': json.dumps(grafico_adopciones),
+    }
+    
+    
+    
+    return render(request,"administrator/index.html",context)
 
    
     
