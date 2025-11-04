@@ -1,0 +1,62 @@
+{% extends 'administrator/plantilla.html' %}
+{% block contenido %}
+<div class="container mt-4">
+
+
+    <table id="tbl_pending_adoptions">
+
+        <thead>
+            <tr>
+                <th>Dueño</th>
+                <th>Mascota</th>
+                <th>Fecha de Envio</th>
+                <th>Contrato</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {% for adoptions in listPending %}
+                <tr>
+                    <td>
+                           {{adoptions.adopter_id}}
+                      
+                    </td>
+                    <td>
+                            {{adoptions.pet_id}}
+
+                    </td>
+                    <td>
+                            {{adoptions.request_date}}
+
+                    </td>
+                    <td>
+                        <a href="{{ adoptions.contract_path.url }}" target="_blank">Ver contrato</a>
+                    </td>
+                    <td>
+                   
+                        <a href="/" class="btn btn-success btn-sm">
+                            <i class="fa fa-check"></i> Aprobar
+                        </a>
+                        <a href="/" class="btn btn-danger btn-sm">
+                            <i class="fa fa-times"></i> Rechazar
+                        </a>
+
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <script>
+
+    let table = new DataTable('#tbl_pending_adoptions', {
+    responsive: true,
+    language:'es'
+});
+</script>
+
+{% endblock %}

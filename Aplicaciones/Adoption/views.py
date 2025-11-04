@@ -366,3 +366,7 @@ def listadoMascotas(request):
 def listadoUsuarios(request):
     listUsers=User.objects.all()
     return render(request,'administrator/listUsers.html',{'users':listUsers})
+
+def adopcionesPendientes(request):
+    listPendingAdoption=Adoption.objects.filter(status='pending')
+    return render(request,'administrator/listPendingAdoptions.html',{'listPending':listPendingAdoption})

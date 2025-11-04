@@ -19,6 +19,9 @@ urlpatterns = [
     path('saveAdoption',views.saveAdoption),
     path('listadoMascotas',views.listadoMascotas),
     path('listadoUsuarios',views.listadoUsuarios),
+    path('adopcionesPendientes',views.adopcionesPendientes),
+    
+    
     
         
 
