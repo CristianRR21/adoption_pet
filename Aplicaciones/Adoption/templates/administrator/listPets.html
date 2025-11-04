@@ -59,9 +59,9 @@
                 <td>{{ pet.pet.age }}</td>
                <td>
                     {% if pet.pet.status == 'available' %}
+                        <span class="badge text-bg-secondary">Sin adoptar</span>
+                    {% elif pet.pet.status == 'adopted' %}
                         <span class="badge text-bg-success">Adoptado</span>
-                    {% else %}
-                        <span class="badge text-bg-secondary">Sin Adoptar</span>
                     {% endif %}
                 </td>
 

@@ -20,6 +20,8 @@ urlpatterns = [
     path('listadoMascotas',views.listadoMascotas),
     path('listadoUsuarios',views.listadoUsuarios),
     path('adopcionesPendientes',views.adopcionesPendientes),
+    path('approvedAdoption/<id>/',views.approvedAdoption),
+    path('rejectAdoption/<id>/',views.rejectAdoption),
     
     
     

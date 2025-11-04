@@ -317,6 +317,40 @@ def eliminarPublicacion(request, id):
     else:
         return redirect('/iniciarSesion')
     
+    
+def approvedAdoption(request, id):
+    if request.user.is_authenticated:
+        adoption = Adoption.objects.get(id=id)     
+        adoption.status= 'approved'
+        adoption.save()
+        
+        pet= adoption.pet
+        pet.status = 'adopted'
+        
+        pet.save()
+        
+        messages.success(request, "Adopcion aprobada correctamente.")
+        return redirect('/adopcionesPendientes')
+    else:
+        return redirect('/iniciarSesion')
+    
+def rejectAdoption(request, id):
+    if request.user.is_authenticated:
+        adoption = Adoption.objects.get(id=id)     
+        adoption.status= 'reject'
+        adoption.save()
+        
+        pet= adoption.pet
+        pet.status = 'available'
+        
+        pet.save()
+        
+        messages.success(request, "Adopcion aprobada correctamente.")
+        return redirect('/adopcionesPendientes')
+    else:
+        return redirect('/iniciarSesion')
+    
+    
 def cerrarSesion(request):
     logout(request)
     return redirect('/')
@@ -340,6 +374,10 @@ def saveAdoption(request):
             adopter_id=adopter_id,
             status=status
         ) 
+        
+        pet=Pet.objects.get(id=pet_id)
+        pet.status='pending'
+        pet.save()
         messages.success(request, "Su solicitud ha sido enviada correctamente.")    
         return redirect('/')
     else:
