@@ -347,3 +347,17 @@ def saveAdoption(request):
 
 
 
+
+
+def listadoMascotas(request):
+    pets=Pet.objects.all()
+    listPets=[]
+    
+    for pet in pets:
+            foto = PetPhoto.objects.filter(pet=pet).order_by('order').first()
+            listPets.append({
+                'pet': pet,
+                'foto': foto
+            })
+    
+    return render(request,'administrator/listPets.html',{'pets':listPets})

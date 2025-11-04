@@ -17,6 +17,8 @@ urlpatterns = [
     path('cerrarSesion',views.cerrarSesion),
     path('adoptar/<id>/',views.adoptar),
     path('saveAdoption',views.saveAdoption),
+    path('listadoMascotas',views.listadoMascotas),
+    
         
 
 ]
