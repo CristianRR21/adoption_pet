@@ -20,9 +20,22 @@
         <li class="list-group-item">Género: {{ pub.pet.gender }}</li>
         <li class="list-group-item">Edad: {{ pub.pet.age }}</li>
       </ul>
-      <div class="card-body" style="text-align: center;">
-        <a href="#" class="btn btn-success">Adoptar</a>
-      </div>
+
+      {% if not request.user.is_authenticated %}
+
+         <div class="card-body" style="text-align: center;">
+          <a href="/iniciarSesion" class="btn btn-success">Adoptar</a>
+        </div>
+      {% else %}
+      
+        <div class="card-body" style="text-align: center;">
+          <a href="adoptar/{{pub.pet.id}}" class="btn btn-success">Adoptar</a>
+        </div>
+    {% endif %}
+
+
+
+
     </div>
   </div>
   {% endfor %}

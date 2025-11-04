@@ -6,6 +6,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth import login 
 from .models import Pet,PetPhoto
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -168,20 +169,119 @@ def savePublication(request):
 
     
 
+
+
+
 def misPublicaciones(request):
     if request.user.is_authenticated:
         user_id = request.user.id
-        pets= Pet.objects.filter(publisher_id=user_id)
-        publications=[]
+        pets = Pet.objects.filter(publisher_id=user_id)
+        publications = []
+
         for pet in pets:
-            image_path=PetPhoto.objects.filter(pet=pet).order_by('order').first()
+            foto = PetPhoto.objects.filter(pet=pet).order_by('order').first()
             publications.append({
-                'pet':pet,
-                'image_path':image_path
+                'pet': pet,
+                'foto': foto
             })
                 
-            
-        return render (request,'adoptions/myPublications.html',{'publications':publications})
+        return render(request, 'adoptions/myPublications.html', {
+            'publications': publications
+        })
     
     else:
         return redirect('/iniciarSesion')
+
+
+
+def editarPublicacion(request, id):
+    pet = Pet.objects.get(id=id)
+    fotos = PetPhoto.objects.filter(pet=pet)
+    return render(request, 'adoptions/editPublication.html', {
+        'pet': pet,
+        'fotos': fotos  
+    })
+
+    
+
+def processEditPublication(request):
+    
+    if request.user.is_authenticated:    
+        pet_id=request.POST['id']
+        name=request.POST['name']
+        species=request.POST['species']
+        breed=request.POST['breed']
+        age=request.POST['age']
+        gender=request.POST['gender']
+        color=request.POST['color']
+        description=request.POST['description']
+        image_path= request.FILES.getlist('image_path[]')   
+        publisher_id= request.user.id
+        
+        pet=Pet.objects.get(id=pet_id)
+        pet.name=name
+        pet.species=species
+        pet.breed=breed
+        pet.age=age
+        pet.gender=gender
+        pet.color=color
+        pet.description=description
+        pet.save()
+                
+        if image_path:
+            existing_photos = PetPhoto.objects.filter(pet=pet)
+            for photo in existing_photos:
+                if photo.image_path:
+                    photo.image_path.delete(save=False)  
+                photo.delete()  
+
+            for index, image in enumerate(image_path, start=1):
+                PetPhoto.objects.create(
+                    pet=pet,
+                    image_path=image,
+                    order=index
+                )
+            
+            
+        messages.success(request,"Mascota actualizada correctamente")
+        return redirect('/')
+        
+    else:
+        return redirect('/iniciarSesion')
+
+    
+
+
+def eliminarPublicacion(request, id):
+    if request.user.is_authenticated:
+        pet = Pet.objects.get(id=id, publisher=request.user)
+
+        fotos = PetPhoto.objects.filter(pet=pet)
+
+        for foto in fotos:
+            if foto.image_path:
+                foto.image_path.delete(save=False)
+            foto.delete()
+
+        usuario = pet.publisher  
+
+        pet.delete()
+
+        if usuario.num_publications > 0:
+            usuario.num_publications -= 1
+            usuario.save()
+
+        messages.success(request, "Mascota eliminada correctamente.")
+        return redirect('/misPublicaciones')
+    else:
+        return redirect('/iniciarSesion')
+    
+def cerrarSesion(request):
+    logout(request)
+    return redirect('/')
+    
+def adoptar(request,id):
+    user = request.user
+    pet = Pet.objects.get(id=id)
+    photos = PetPhoto.objects.filter(pet=pet)
+    return render(request,'adoptions/newAdoption.html',{'pet':pet,'photos':photos,'user':user})

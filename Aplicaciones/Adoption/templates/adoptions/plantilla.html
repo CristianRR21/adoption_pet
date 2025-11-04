@@ -296,18 +296,7 @@
               </li>
              
 
-
-               {% if not request.user.is_authenticated %}
-                <a href="/iniciarSesion" class="nav-link">Adoptar sin sesion</a>
-            {% else %}
-                <a href="index.html" class="nav-link">Adoptar con sesion</a>
-
-            {% endif %}
-             
-
-
-
-
+           
                {% if not request.user.is_authenticated %}
                 <a href="/iniciarSesion" class="nav-link">Dar en Adopcion sin sesion</a>
             {% else %}
@@ -332,7 +321,7 @@
                           <li><a class="dropdown-item" href="/perfil">Perfil</a></li>
                           <li><a class="dropdown-item" href="/misPublicaciones">Mis Publicaciones</a></li>
                           <li><hr class="dropdown-divider"></li>
-                          <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
+                          <li><a class="dropdown-item" href="/cerrarSesion">Cerrar sesión</a></li>
                       </ul>
                   </div>
                 {% endif %}
@@ -560,6 +549,25 @@
       border: 1px solid red;
     }
   </style>
+
+
+  {% if messages %}
+    {% for mensaje in messages %}
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                title: "{% if 'error' in mensaje.tags %}Error{% elif 'warning' in mensaje.tags %}Advertencia{% elif 'success' in mensaje.tags %}Éxito{% else %}Información{% endif %}",
+                text: "{{ mensaje|escapejs }}",
+                icon: "{% if 'error' in mensaje.tags %}error{% elif 'warning' in mensaje.tags %}warning{% elif 'success' in mensaje.tags %}success{% else %}info{% endif %}",
+                confirmButtonText: 'Aceptar'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+
+
+
+
 
   <script src="js/jquery-1.11.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>

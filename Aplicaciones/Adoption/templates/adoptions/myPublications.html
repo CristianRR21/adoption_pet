@@ -1,7 +1,7 @@
 {% extends "adoptions/plantilla.html" %}
 {% block contenido %}
 <br><br><br>
-<h1 style="text-align: center;">Mis publicaciones</h1><br>
+<h1 style="text-align: center;">Mis mascotas</h1><br>
 <div class="container">
     <table id="tbl_my_publications" class="table table-striped table-bordered">
         <thead class="table-dark">
@@ -18,19 +18,30 @@
             {% for pub in publications %}
             <tr>
                 <td style="width:150px; height:150px;">
-                    {% if pub.image_path %}
-                        <img src="{{ pub.image_path.image_path.url }}" alt="{{ pub.pet.name }}" style="width:100%; height:100%; object-fit:cover; border-radius:5px;">
+            
+                         {% if pub.foto %}
+                        <img src="{{ pub.foto.image_path.url }}" 
+                             alt="Foto de {{ pub.pet.name }}" 
+                             class="img-thumbnail rounded" 
+                             style="width: 120px; height: 120px; object-fit: cover;">
                     {% else %}
-                        SIN IMAGEN
+                        <span class="text-muted">Sin imagen</span>
                     {% endif %}
+
                 </td>
                 <td>{{ pub.pet.name }}</td>
                 <td>{{ pub.pet.description }}</td>
                 <td>{{ pub.pet.gender }}</td>
                 <td>{{ pub.pet.age }}</td>
                 <td>
-                    <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                    <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                    <a href="editarPublicacion/{{pub.pet.id}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+
+
+                    <a href="#" class="btn btn-danger btn-sm" title="Eliminar publicación"
+                        onclick="confirmarEliminacion('/eliminarPublicacion/{{pub.pet.id}}')">
+                        <i class="fa fa-trash"></i>
+                    </a>
+
 
                 </td>
             </tr>
@@ -38,6 +49,26 @@
         </tbody>
     </table>
 </div>
+
+
+<script>
+                function confirmarEliminacion(url){
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: '¡Esta acción no se puede deshacer!',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = url;
+                            }
+                        });
+                    }
+          </script>
 
 <script>
 

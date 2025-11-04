@@ -11,10 +11,12 @@ urlpatterns = [
     path('nuevaPublicacion',views.nuevaPublicacion),
     path('savePublication',views.savePublication),
     path('misPublicaciones',views.misPublicaciones),
-    
-    
-    
-    
+    path('editarPublicacion/<id>/',views.editarPublicacion),
+    path('processEditPublication/',views.processEditPublication),
+    path('eliminarPublicacion/<id>', views.eliminarPublicacion),
+    path('cerrarSesion',views.cerrarSesion),
+    path('adoptar/<id>/',views.adoptar),
+        
 
 ]
 
