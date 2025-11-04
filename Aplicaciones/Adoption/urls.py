@@ -18,6 +18,7 @@ urlpatterns = [
     path('adoptar/<id>/',views.adoptar),
     path('saveAdoption',views.saveAdoption),
     path('listadoMascotas',views.listadoMascotas),
+    path('listadoUsuarios',views.listadoUsuarios),
     
         
 

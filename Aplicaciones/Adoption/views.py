@@ -361,3 +361,8 @@ def listadoMascotas(request):
             })
     
     return render(request,'administrator/listPets.html',{'pets':listPets})
+
+
+def listadoUsuarios(request):
+    listUsers=User.objects.all()
+    return render(request,'administrator/listUsers.html',{'users':listUsers})
