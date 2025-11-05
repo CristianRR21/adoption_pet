@@ -22,6 +22,8 @@ urlpatterns = [
     path('adopcionesPendientes',views.adopcionesPendientes),
     path('approvedAdoption/<id>/',views.approvedAdoption),
     path('rejectAdoption/<id>/',views.rejectAdoption),
+    path('adopcionesFinalizadas',views.adopcionesFinalizadas),
+    
     
     
     

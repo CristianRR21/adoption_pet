@@ -25,14 +25,23 @@
     <div class="col-md-3 mb-3">
       <div class="card text-white bg-warning shadow">
         <div class="card-body text-center">
-          <h5>Adopciones Totales</h5>
-          <h3>{{ total_adopciones }}</h3>
+          <h5>Adopciones Aprobadas</h5>
+          <h3>{{ aprobadas }}</h3>
         </div>
       </div>
     </div>
 
     <div class="col-md-3 mb-3">
       <div class="card text-white bg-danger shadow">
+        <div class="card-body text-center">
+          <h5>Adopciones Rechazadas</h5>
+          <h3>{{ rechazadas }}</h3>
+        </div>
+      </div>
+    </div>
+
+     <div class="col-md-3 mb-3">
+      <div class="card text-white bg-secondary shadow">
         <div class="card-body text-center">
           <h5>Adopciones Pendientes</h5>
           <h3>{{ pendientes }}</h3>
@@ -64,7 +73,7 @@
   new Chart(document.getElementById('graficoUsuarios'), {
     type: 'doughnut',
     data: {
-      labels: ['Adoptantes', 'Publicadores'],
+      labels: ['Adoptantes', 'Dueños'],
       datasets: [{
         data: usuarios,
         backgroundColor: ['#2ecc71', '#3498db']

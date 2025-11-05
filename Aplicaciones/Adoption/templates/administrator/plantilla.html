@@ -36,6 +36,13 @@
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
 
+<style>
+.nav-double-line {
+  line-height: 1.2; /* reduce espacio vertical */
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+</style>
 
   <script>
     DataTable.defaults.language = {
@@ -441,7 +448,16 @@
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="/adopcionesPendientes">Pendientes</a></li>
-                <li class="nav-item"> <a class="nav-link" href="/adopcionesAprobadas">Aprobadas</a></li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/adopcionesFinalizadas">
+                    <small>Aprobadas</small><br><small>/ Rechazadas</small>
+
+                  </a>
+                </li>
+
+
+
+
               </ul>
             </div>
           </li>

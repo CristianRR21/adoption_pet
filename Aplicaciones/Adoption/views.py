@@ -37,18 +37,19 @@ def administrador(request):
        
     total_usuarios = User.objects.count()
     total_adoptantes = User.objects.filter(role='adopter').count()
-    total_publicadores = User.objects.filter(role='publisher').count()
+    total_publicadores = User.objects.filter(role='owner').count()
     
     
     
     total_mascotas = Pet.objects.count()
     disponibles = Pet.objects.filter(status='available').count()
-    adoptadas = Pet.objects.filter(status='unavailable').count()
+    adoptadas = Pet.objects.filter(status='adopted').count()
     
-    total_adopciones = Adoption.objects.count()
+    
+    #total_adopciones = Adoption.objects.count()
     pendientes = Adoption.objects.filter(status='pending').count()
     aprobadas = Adoption.objects.filter(status='approved').count()
-    rechazadas = Adoption.objects.filter(status='rejected').count()
+    rechazadas = Adoption.objects.filter(status='reject').count()
     
     grafico_usuarios = [total_adoptantes, total_publicadores]
     grafico_mascotas = [disponibles, adoptadas]
@@ -61,7 +62,7 @@ def administrador(request):
         'total_mascotas': total_mascotas,
         'disponibles': disponibles,
         'adoptadas': adoptadas,
-        'total_adopciones': total_adopciones,
+        #'total_adopciones': total_adopciones,
         'pendientes': pendientes,
         'aprobadas': aprobadas,
         'rechazadas': rechazadas,
@@ -408,3 +409,7 @@ def listadoUsuarios(request):
 def adopcionesPendientes(request):
     listPendingAdoption=Adoption.objects.filter(status='pending')
     return render(request,'administrator/listPendingAdoptions.html',{'listPending':listPendingAdoption})
+
+def adopcionesFinalizadas(request):
+    listFinalAdoption = Adoption.objects.exclude(status='pending')
+    return render(request,'administrator/listFinalAdoptions.html',{'listFinal':listFinalAdoption})

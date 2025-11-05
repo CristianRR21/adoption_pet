@@ -1,0 +1,105 @@
+{% extends 'administrator/plantilla.html' %}
+{% block contenido %}
+<div class="container mt-4">
+
+
+
+<table id="tbl_final_adoptions">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Dueño</th>
+                <th>Mascota</th>
+                <th>Fecha de Envio</th>
+                <th>Contrato</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            {% for adoptions in listFinal %}
+                <tr>
+                    <td>{{adoptions.id}}</td>
+                    <td>
+                           {{adoptions.adopter_id}}
+                      
+                    </td>
+                    <td>
+                            {{adoptions.pet_id}}
+
+                    </td>
+                    <td>
+                            {{adoptions.request_date}}
+
+                    </td>
+                    <td>
+                      <a href="javascript:;" class="btn btn-info btn-sm" 
+                           onclick="verDocumento('{{ adoptions.contract_path.url }}')">
+                            Ver contrato
+                        </a>
+
+                    </td>
+                    <td>
+                        {% if adoptions.status == 'approved' %}
+                            <span class="badge bg-success">Aprobado</span>              
+                        {%else %}
+                            <span class="badge bg-danger">Rechazado</span>            
+                        {%endif%}
+                    </td>
+                   
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+
+
+
+
+
+
+
+
+<!-- Modal to view contract -->
+<div class="modal fade" id="modalContract" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="min-width:80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Documento de la solicitud</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="frm_contract_adoption" width="100%" height="700px" style="border:none;"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+
+    let table = new DataTable('#tbl_final_adoptions', {
+    responsive: true,
+    language:'es'
+});
+</script>    
+<script>
+$("#modalContract").appendTo('body');
+
+function verDocumento(url) {
+    $('#frm_contract_adoption').prop('src', url);
+
+    var modal = new bootstrap.Modal(document.getElementById('modalContract'), {
+        backdrop: false, 
+        keyboard: true 
+    });
+    modal.show();
+}
+</script>
+
+
+{% endblock %}
