@@ -8,6 +8,7 @@ from django.contrib.auth import login
 from .models import Pet,PetPhoto,Adoption
 from django.contrib.auth import logout
 import json
+from django.db.models import Count, Q
 
 
 # Create your views here.
@@ -54,7 +55,17 @@ def administrador(request):
     grafico_usuarios = [total_adoptantes, total_publicadores]
     grafico_mascotas = [disponibles, adoptadas]
     grafico_adopciones = [pendientes, aprobadas, rechazadas]
-    
+     #usarios 
+    usuarios_top = (
+    User.objects.annotate(
+        total_adopciones=Count(
+            'adoption',
+            filter=Q(adoption__status='approved')
+        )
+    )
+    .filter(total_adopciones__gt=0)
+    .order_by('-total_adopciones')[:5]
+    )
     context = {
         'total_usuarios': total_usuarios,
         'total_adoptantes': total_adoptantes,
@@ -69,8 +80,12 @@ def administrador(request):
         'grafico_usuarios_json': json.dumps(grafico_usuarios),
         'grafico_mascotas_json': json.dumps(grafico_mascotas),
         'grafico_adopciones_json': json.dumps(grafico_adopciones),
+        'usuarios_top': usuarios_top,
     }
     
+   
+
+       
     
     
     return render(request,"administrator/index.html",context)

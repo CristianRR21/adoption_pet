@@ -66,6 +66,29 @@
       <canvas id="graficoAdopciones" height="250"></canvas>
     </div>
   </div>
+  <br>
+  <br>
+  <div>
+    <h5 style="text-align: center;">Usuarios con más adopciones aprobadas</h5><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Total de adopciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios_top %}
+        <tr>
+          <td>{{ u.first_name }}</td>
+          <td>{{ u.total_adopciones }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="2">No hay adopciones aprobadas aún.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>
