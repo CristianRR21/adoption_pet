@@ -11,6 +11,8 @@ import json
 from django.db.models import Count, Q
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from Aplicaciones.Adoption.decorators import admin_required
+
 
 
 # Create your views here.
@@ -35,10 +37,12 @@ def adoptions(request):
 def registerUser(request):
     return render(request,"login/register_user.html")
 
-@login_required(login_url='/iniciarSesion')
+#@login_required(login_url='/iniciarSesion')
+@admin_required
 def administrador(request):    
-    if not hasattr(request.user, 'role') or request.user.role != 'administrator':
-        return redirect('/')
+    
+    #if not hasattr(request.user, 'role') or request.user.role != 'administrator':
+     #   return redirect('/')
     total_usuarios = User.objects.count()
     total_adoptantes = User.objects.filter(role='adopter').count()
     total_publicadores = User.objects.filter(role='owner').count()
@@ -400,7 +404,7 @@ def saveAdoption(request):
 
 
 
-
+@admin_required
 def listadoMascotas(request):
     pets=Pet.objects.all()
     listPets=[]
@@ -414,24 +418,25 @@ def listadoMascotas(request):
     
     return render(request,'administrator/listPets.html',{'pets':listPets})
 
-
+@admin_required
 def listadoUsuarios(request):
     listUsers=User.objects.all()
     return render(request,'administrator/listUsers.html',{'users':listUsers})
-
+@admin_required
 def adopcionesPendientes(request):
     listPendingAdoption = Adoption.objects.filter(status='pending').select_related('adopter', 'pet')
     return render(request,'administrator/listPendingAdoptions.html',{'listPending':listPendingAdoption})
 
+@admin_required
 def adopcionesFinalizadas(request):
     listFinalAdoption = Adoption.objects.exclude(status='pending').select_related('adopter', 'pet')
     return render(request,'administrator/listFinalAdoptions.html',{'listFinal':listFinalAdoption})
-
+@admin_required
 def perfilUsuarioAdm(request):
     user = request.user
     return render(request, 'administrator/editProfile.html', {'user': user})
 
-
+@admin_required
 def processEditProfileAdm(request):
     if request.method == 'POST':
         user = request.user

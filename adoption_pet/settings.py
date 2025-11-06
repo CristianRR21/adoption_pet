@@ -18,6 +18,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 X_FRAME_OPTIONS = 'ALLOWALL'
 
 
+# Duración de la sesión en segundos
+SESSION_COOKIE_AGE = 300  # 5 minutos
+
+# Cerrar sesión al cerrar el navegador
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Opción opcional: actualizar el tiempo de expiración en cada petición
+SESSION_SAVE_EVERY_REQUEST = True
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
