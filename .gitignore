@@ -1,0 +1,52 @@
+# Ignorar settings.py
+adoption_pet/settings.py
+
+# Bytecode de Python
+*.py[cod]
+__pycache__/
+*$py.class
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+.venv/
+.python-version
+
+# Archivos de base de datos locales
+db.sqlite3
+*.sqlite3
+
+# Archivos de logs
+*.log
+
+# Archivos de medios subidos
+media/
+uploads/
+
+# Archivos estáticos compilados
+staticfiles/
+*.css
+*.js
+*.map
+
+# Archivos de migraciones temporales
+*.pyc
+*/migrations/*.pyc
+*/migrations/*.py[cod]
+*/migrations/__pycache__/
+
+# Archivos de configuración de IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Configuraciones de sistema
+.DS_Store
+Thumbs.db
+
+# Entornos de contenedores
+.env
+.env.local
+.env.*.local
