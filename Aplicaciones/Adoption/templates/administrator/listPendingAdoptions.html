@@ -2,65 +2,53 @@
 {% block contenido %}
 <div class="container mt-4">
 
-
-    <table id="tbl_pending_adoptions">
-
-        <thead>
+    <table id="tbl_pending_adoptions" class="table table-striped table-bordered">
+        <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Dueño</th>
                 <th>Mascota</th>
-                <th>Fecha de Envio</th>
+                <th>Fecha de Envío</th>
                 <th>Contrato</th>
                 <th>Acciones</th>
             </tr>
         </thead>
 
-
         <tbody>
             {% for adoptions in listPending %}
-                <tr>
-                    <td>{{adoptions.id}}</td>
-                    <td>
-                           {{adoptions.adopter_id}}
-                      
-                    </td>
-                    <td>
-                            {{adoptions.pet_id}}
-
-                    </td>
-                    <td>
-                            {{adoptions.request_date}}
-
-                    </td>
-                    <td>
-                      <a href="javascript:;" class="btn btn-info btn-sm" 
+            <tr>
+                <td>{{ adoptions.id }}</td>
+                <td>{{ adoptions.adopter_id }}</td>
+                <td>{{ adoptions.pet_id }}</td>
+                <td>{{ adoptions.request_date }}</td>
+                <td>
+                    {% if adoptions.contract_path %}
+                        <a href="javascript:;" class="btn btn-info btn-sm"
                            onclick="verDocumento('{{ adoptions.contract_path.url }}')">
-                            Ver contrato
+                            📄 Ver contrato
                         </a>
-
-                    </td>
-                    <td>                   
+                    {% else %}
+                        <span class="text-muted">Sin contrato</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="d-flex gap-2 justify-content-center">
                         <a href="#" class="btn btn-success btn-sm"
-                            onclick="confirmationApproved('/approvedAdoption/{{adoptions.id}}')">                        
-                            <i class="fa fa-check"></i>Aprobar
+                           onclick="confirmationApproved('/approvedAdoption/{{ adoptions.id }}')">
+                            <i class="fa fa-check"></i> Aprobar
                         </a>
 
-                         <a href="#" class="btn btn-danger btn-sm"
-                            onclick="rejectAdoption('/rejectAdoption/{{adoptions.id}}')">                        
-                            <i class="fa fa-times"></i>Rechazar
+                        <a href="#" class="btn btn-danger btn-sm"
+                           onclick="rejectAdoption('/rejectAdoption/{{ adoptions.id }}')">
+                            <i class="fa fa-times"></i> Rechazar
                         </a>
-                        
-                        
-                    </a>
-
-                    </td>
-                </tr>
+                    </div>
+                </td>
+            </tr>
             {% endfor %}
         </tbody>
-
     </table>
-
+</div>
 
 <!-- Modal to view contract -->
 <div class="modal fade" id="modalContract" tabindex="-1" aria-hidden="true">
@@ -83,7 +71,25 @@
 
     let table = new DataTable('#tbl_pending_adoptions', {
     responsive: true,
-    language:'es'
+    language:'es',
+     dom: 'Bfrtip', 
+    buttons: [
+      {
+        extend: 'excelHtml5',
+        text: '📊 Exportar a Excel',
+        className: 'btn btn-success'
+      },
+      {
+        extend: 'pdfHtml5',
+        text: '📄 Exportar a PDF',
+        className: 'btn btn-danger'
+      },
+      {
+        extend: 'print',
+        text: '🖨️ Imprimir',
+        className: 'btn btn-primary'
+      }
+    ],
 });
 </script>
 

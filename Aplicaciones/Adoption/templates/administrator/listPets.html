@@ -86,7 +86,25 @@
 
     let table = new DataTable('#tbl_pets', {
     responsive: true,
-    language:'es'
+    language:'es',
+     dom: 'Bfrtip', 
+    buttons: [
+      {
+        extend: 'excelHtml5',
+        text: '📊 Exportar a Excel',
+        className: 'btn btn-success'
+      },
+      {
+        extend: 'pdfHtml5',
+        text: '📄 Exportar a PDF',
+        className: 'btn btn-danger'
+      },
+      {
+        extend: 'print',
+        text: '🖨️ Imprimir',
+        className: 'btn btn-primary'
+      }
+    ],
 });
 </script>
 

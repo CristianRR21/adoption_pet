@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Skydash Admin</title>
   <!-- plugins:css -->
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 <link rel="stylesheet" href="{% static 'plantilla/admin/vendors/feather/feather.css' %}">
 <link rel="stylesheet" href="{% static 'plantilla/admin/vendors/ti-icons/css/themify-icons.css' %}">
 <link rel="stylesheet" href="{% static 'plantilla/admin/vendors/css/vendor.bundle.base.css' %}">
@@ -22,16 +24,50 @@
 <!-- endinject -->
 <link rel="shortcut icon" href="{% static 'plantilla/admin/images/favicon.png' %}" />
 
+
+<link rel="stylesheet" href="//cdn.datatables.net/2.3.1/css/dataTables.dataTables.min.css">
+xx
+
+<!-- DataTables CSS y JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.min.css">
+    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.min.js"></script>
+
+    <!-- Librerías para exportación -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.3/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.3/js/buttons.print.min.js"></script>
+
+    <!-- CSS para los botones -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.3/css/buttons.dataTables.min.css">
+
+    <!-- IMPORTANDO datatables IDIOMA-->
+
+    <script>
+        DataTable.defaults.language = {
+            url: 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-ES.json'            
+        };
+    </script>
+
+<!-- chart.js-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-       <a class="navbar-brand brand-logo mr-5" href="/">
-    <img src="{% static 'plantilla/admin/images/logo.svg' %}" class="mr-2" alt="logo"/>
+       <a class="navbar-brand brand-logo mr-5" href="#">
+    <img src="{% static 'plantilla/admin/images/patitas.png' %}" class="mr-2" alt="logo"/>
 </a>
-<a class="navbar-brand brand-logo-mini" href="/">
+<a class="navbar-brand brand-logo-mini" href="#">
     <img src="{% static 'plantilla/admin/images/logo-mini.svg' %}" alt="logo"/>
 </a>
 
@@ -42,6 +78,7 @@
         </button>
         <ul class="navbar-nav mr-lg-2">
           <li class="nav-item nav-search d-none d-lg-block">
+            <!--
             <div class="input-group">
               <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
                 <span class="input-group-text" id="search">
@@ -50,13 +87,17 @@
               </div>
               <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
             </div>
+            -->
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+            <!--         
+               <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="icon-bell mx-0"></i>
               <span class="count"></span>
+              -->
+
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
@@ -102,25 +143,28 @@
             </div>
           </li>
           <li class="nav-item nav-profile dropdown">
+
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/face28.jpg" alt="profile"/>
+              <img src="{%static 'plantilla/admin/images/faces/face28.jpg' %}" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="ti-settings text-primary"></i>
-                Settings
+                Perfil
               </a>
               <a class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>
-                Logout
+                Cerrar Sesion
               </a>
             </div>
           </li>
-          <li class="nav-item nav-settings d-none d-lg-flex">
+          <!--          <li class="nav-item nav-settings d-none d-lg-flex">
             <a class="nav-link" href="#">
               <i class="icon-ellipsis"></i>
             </a>
           </li>
+          -->
+
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="icon-menu"></span>
@@ -303,50 +347,59 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="/administrador">
               <i class="icon-grid menu-icon"></i>
-              <span class="menu-title">Dashboard</span>
+              <span class="menu-title">Reportes</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-              <i class="icon-layout menu-icon"></i>
-              <span class="menu-title">UI Elements</span>
+            <a class="nav-link"  href="/listadoUsuarios" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title">Usuarios</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <!--            <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
               </ul>
             </div>
+            -->
+
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+            <a class="nav-link"  href="/listadoMascotas" aria-expanded="false" aria-controls="form-elements">
               <i class="icon-columns menu-icon"></i>
-              <span class="menu-title">Form elements</span>
+              <span class="menu-title">Mascotas</span>
               <i class="menu-arrow"></i>
             </a>
+            <!--
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
               </ul>
             </div>
+            -->
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
               <i class="icon-bar-graph menu-icon"></i>
-              <span class="menu-title">Charts</span>
+              <span class="menu-title">Adopciones</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/adopcionesPendientes">Pendientes</a></li>
+              </ul>
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/adopcionesFinalizadas"><small>Aprobadas</small><br><small>/ Rechazadas</small>
+                </a></li>
               </ul>
             </div>
           </li>
-          <li class="nav-item">
+          <!--
+                    <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
               <i class="icon-grid-2 menu-icon"></i>
               <span class="menu-title">Tables</span>
@@ -402,16 +455,32 @@
               <span class="menu-title">Documentation</span>
             </a>
           </li>
+          -->
+
         </ul>
       </nav>
               <!--  Header End -->
-          <div class="categories overflow-hidden">
+            <div class="main-panel">
                 <div >
                 {% block contenido %}
                 
                 {% endblock %}
-              </div>
+                
+                <br><br>
+
           </div>
+
+                <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2025 </a> Todos los derechos Reservados</span>
+          </div>
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Patitas Amigables</a></span> 
+          </div>
+        </footer> 
+          
+
+        
   </div>   
     <!-- page-body-wrapper ends -->
   </div>

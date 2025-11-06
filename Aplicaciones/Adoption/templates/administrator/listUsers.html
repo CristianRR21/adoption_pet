@@ -3,24 +3,33 @@
 <div class="container mt-4">
 
     <table id="tbl_users" class="table table-striped table-bordered">
-        <thead>
-            <tr>
+        <thead class="table-dark">
+            <tr>    
                 <th>Foto</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Email</th>
-                <th>Direccion</th>
+                <th>Dirección</th>
                 <th>Rol</th>
             </tr>
         </thead>
         <tbody>
             {% for user in users %}
             <tr>
-                <td>{{user.first_name}}</td>
-                <td>{{user.first_name}}</td>
-                <td>{{user.last_name}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.address}}</td>
+                <td style="width:120px; height:120px; text-align:center;">
+                    {% if user.fotografia %}
+                        <img src="{{ user.fotografia.url }}" 
+                             alt="Foto de {{ user.first_name }}" 
+                             class="img-thumbnail rounded" 
+                             style="width: 90px; height: 90px; object-fit: cover;">
+                    {% else %}
+                        <span class="text-muted">Sin imagen</span>
+                    {% endif %}
+                </td>
+                <td>{{ user.first_name }}</td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.address }}</td>
                 <td>
                     {% if user.role == 'administrator' %}
                         <span class="badge rounded-pill text-bg-danger">Administrador</span>
@@ -29,20 +38,36 @@
                     {% else %}
                         <span class="badge rounded-pill text-bg-primary">Dueño</span>
                     {% endif %}
-                    
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-
-
 </div>
+
 <script>
 
     let table = new DataTable('#tbl_users', {
     responsive: true,
-    language:'es'
+    language:'es',
+       dom: 'Bfrtip', 
+    buttons: [
+      {
+        extend: 'excelHtml5',
+        text: '📊 Exportar a Excel',
+        className: 'btn btn-success'
+      },
+      {
+        extend: 'pdfHtml5',
+        text: '📄 Exportar a PDF',
+        className: 'btn btn-danger'
+      },
+      {
+        extend: 'print',
+        text: '🖨️ Imprimir',
+        className: 'btn btn-primary'
+      }
+    ],
 });
 </script>
 
