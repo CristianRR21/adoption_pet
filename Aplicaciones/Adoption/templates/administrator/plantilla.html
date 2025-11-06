@@ -6,141 +6,56 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>PolluxUI Admin</title>
-  <!-- base:css -->
-<!-- Librerías de proveedores -->
-<link rel="stylesheet" href="{% static 'plantilla/admin/template/vendors/typicons/typicons.css' %}">
-<link rel="stylesheet" href="{% static 'plantilla/admin/template/vendors/css/vendor.bundle.base.css' %}">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="{% static 'plantilla/admin/template/css/vertical-layout-light/style.css' %}">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="{% static 'plantilla/admin/template/images/favicon.png'%}" />
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-  <!-- chart.js-->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
-
-<style>
-.nav-double-line {
-  line-height: 1.2; /* reduce espacio vertical */
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-</style>
-
-  <script>
-    DataTable.defaults.language = {
-      url: 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-ES.json'
-    };
-  </script>
+  <title>Skydash Admin</title>
+  <!-- plugins:css -->
+<link rel="stylesheet" href="{% static 'plantilla/admin/vendors/feather/feather.css' %}">
+<link rel="stylesheet" href="{% static 'plantilla/admin/vendors/ti-icons/css/themify-icons.css' %}">
+<link rel="stylesheet" href="{% static 'plantilla/admin/vendors/css/vendor.bundle.base.css' %}">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<link rel="stylesheet" href="{% static 'plantilla/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css' %}">
+<link rel="stylesheet" href="{% static 'plantilla/admin/vendors/ti-icons/css/themify-icons.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'plantilla/admin/js/select.dataTables.min.css' %}">
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<link rel="stylesheet" href="{% static 'plantilla/admin/css/vertical-layout-light/style.css' %}">
+<!-- endinject -->
+<link rel="shortcut icon" href="{% static 'plantilla/admin/images/favicon.png' %}" />
 
 </head>
 <body>
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
-      <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="navbar-brand-wrapper d-flex justify-content-center">
-        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
-          <a class="navbar-brand brand-logo" href="index.html"><img src="images/logo.svg" alt="logo"/></a>
-          <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/logo-mini.svg" alt="logo"/></a>
-          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-            <span class="typcn typcn-th-menu"></span>
-          </button>
-        </div>
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+       <a class="navbar-brand brand-logo mr-5" href="/">
+    <img src="{% static 'plantilla/admin/images/logo.svg' %}" class="mr-2" alt="logo"/>
+</a>
+<a class="navbar-brand brand-logo-mini" href="/">
+    <img src="{% static 'plantilla/admin/images/logo-mini.svg' %}" alt="logo"/>
+</a>
+
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
         <ul class="navbar-nav mr-lg-2">
-          <li class="nav-item nav-profile dropdown">
-            <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="images/faces/face5.jpg" alt="profile"/>
-              <span class="nav-profile-name">Eugenia Mullins</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="typcn typcn-cog-outline text-primary"></i>
-                Settings
-              </a>
-              <a class="dropdown-item">
-                <i class="typcn typcn-eject text-primary"></i>
-                Logout
-              </a>
+          <li class="nav-item nav-search d-none d-lg-block">
+            <div class="input-group">
+              <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                <span class="input-group-text" id="search">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
             </div>
-          </li>
-          <li class="nav-item nav-user-status dropdown">
-              <p class="mb-0">Last login was 23 hours ago.</p>
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item nav-date dropdown">
-            <a class="nav-link d-flex justify-content-center align-items-center" href="javascript:;">
-              <h6 class="date mb-0">Today : Mar 23</h6>
-              <i class="typcn typcn-calendar"></i>
-            </a>
-          </li>
           <li class="nav-item dropdown">
-            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-              <i class="typcn typcn-cog-outline mx-0"></i>
-              <span class="count"></span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-              <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal">David Grey
-                  </h6>
-                  <p class="font-weight-light small-text text-muted mb-0">
-                    The meeting is cancelled
-                  </p>
-                </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
-                  </h6>
-                  <p class="font-weight-light small-text text-muted mb-0">
-                    New product launch
-                  </p>
-                </div>
-              </a>
-              <a class="dropdown-item preview-item">
-                <div class="preview-thumbnail">
-                    <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
-                </div>
-                <div class="preview-item-content flex-grow">
-                  <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
-                  </h6>
-                  <p class="font-weight-light small-text text-muted mb-0">
-                    Upcoming board meeting
-                  </p>
-                </div>
-              </a>
-            </div>
-          </li>
-          <li class="nav-item dropdown mr-0">
-            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
-              <i class="typcn typcn-bell mx-0"></i>
+            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
+              <i class="icon-bell mx-0"></i>
               <span class="count"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
@@ -148,7 +63,7 @@
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-success">
-                    <i class="typcn typcn-info mx-0"></i>
+                    <i class="ti-info-alt mx-0"></i>
                   </div>
                 </div>
                 <div class="preview-item-content">
@@ -161,7 +76,7 @@
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-warning">
-                    <i class="typcn typcn-cog-outline mx-0"></i>
+                    <i class="ti-settings mx-0"></i>
                   </div>
                 </div>
                 <div class="preview-item-content">
@@ -174,7 +89,7 @@
               <a class="dropdown-item preview-item">
                 <div class="preview-thumbnail">
                   <div class="preview-icon bg-info">
-                    <i class="typcn typcn-user mx-0"></i> 
+                    <i class="ti-user mx-0"></i>
                   </div>
                 </div>
                 <div class="preview-item-content">
@@ -186,56 +101,39 @@
               </a>
             </div>
           </li>
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img src="images/faces/face28.jpg" alt="profile"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item">
+                <i class="ti-settings text-primary"></i>
+                Settings
+              </a>
+              <a class="dropdown-item">
+                <i class="ti-power-off text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+          <li class="nav-item nav-settings d-none d-lg-flex">
+            <a class="nav-link" href="#">
+              <i class="icon-ellipsis"></i>
+            </a>
+          </li>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-          <span class="typcn typcn-th-menu"></span>
+          <span class="icon-menu"></span>
         </button>
       </div>
     </nav>
-
-
     <!-- partial -->
-    <nav class="navbar-breadcrumb col-xl-12 col-12 d-flex flex-row p-0">
-      <div class="navbar-links-wrapper d-flex align-items-stretch">
-        <div class="nav-link">
-          <a href="javascript:;"><i class="typcn typcn-calendar-outline"></i></a>
-        </div>
-        <div class="nav-link">
-          <a href="javascript:;"><i class="typcn typcn-mail"></i></a>
-        </div>
-        <div class="nav-link">
-          <a href="javascript:;"><i class="typcn typcn-folder"></i></a>
-        </div>
-        <div class="nav-link">
-          <a href="javascript:;"><i class="typcn typcn-document-text"></i></a>
-        </div>
-      </div>
-      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <ul class="navbar-nav mr-lg-2">
-          <li class="nav-item ml-0">
-            <h4 class="mb-0">Dashboard</h4>
-          </li>
-          <li class="nav-item">
-            <div class="d-flex align-items-baseline">
-              <p class="mb-0">Home</p>
-              <i class="typcn typcn-chevron-right"></i>
-              <p class="mb-0">Main Dahboard</p>
-            </div>
-          </li>
-        </ul>
-        <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item nav-search d-none d-md-block mr-0">
-           
-          </li>
-        </ul>
-      </div>
-    </nav>
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
       <div class="theme-setting-wrapper">
-        <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+        <div id="settings-trigger"><i class="ti-settings"></i></div>
         <div id="theme-settings" class="settings-panel">
-          <i class="settings-close typcn typcn-times"></i>
+          <i class="settings-close ti-close"></i>
           <p class="settings-heading">SIDEBAR SKINS</p>
           <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
           <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
@@ -251,8 +149,8 @@
         </div>
       </div>
       <div id="right-sidebar" class="settings-panel">
-        <i class="settings-close typcn typcn-times"></i>
-        <ul class="nav nav-tabs" id="setting-panel" role="tablist">
+        <i class="settings-close ti-close"></i>
+        <ul class="nav nav-tabs border-top" id="setting-panel" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="todo-tab" data-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
           </li>
@@ -279,7 +177,7 @@
                       Team review meeting at 3.00 PM
                     </label>
                   </div>
-                  <i class="remove typcn typcn-delete-outline"></i>
+                  <i class="remove ti-close"></i>
                 </li>
                 <li>
                   <div class="form-check">
@@ -288,7 +186,7 @@
                       Prepare for presentation
                     </label>
                   </div>
-                  <i class="remove typcn typcn-delete-outline"></i>
+                  <i class="remove ti-close"></i>
                 </li>
                 <li>
                   <div class="form-check">
@@ -297,7 +195,7 @@
                       Resolve all the low priority tickets due today
                     </label>
                   </div>
-                  <i class="remove typcn typcn-delete-outline"></i>
+                  <i class="remove ti-close"></i>
                 </li>
                 <li class="completed">
                   <div class="form-check">
@@ -306,7 +204,7 @@
                       Schedule meeting for next week
                     </label>
                   </div>
-                  <i class="remove typcn typcn-delete-outline"></i>
+                  <i class="remove ti-close"></i>
                 </li>
                 <li class="completed">
                   <div class="form-check">
@@ -315,21 +213,22 @@
                       Project review
                     </label>
                   </div>
-                  <i class="remove typcn typcn-delete-outline"></i>
+                  <i class="remove ti-close"></i>
                 </li>
               </ul>
             </div>
-            <div class="events py-4 border-bottom px-3">
+            <h4 class="px-3 text-muted mt-5 font-weight-light mb-0">Events</h4>
+            <div class="events pt-4 px-3">
               <div class="wrapper d-flex mb-2">
-                <i class="typcn typcn-media-record-outline text-primary mr-2"></i>
+                <i class="ti-control-record text-primary mr-2"></i>
                 <span>Feb 11 2018</span>
               </div>
-              <p class="mb-0 font-weight-thin text-gray">Creating component page</p>
-              <p class="text-gray mb-0">build a js based app</p>
+              <p class="mb-0 font-weight-thin text-gray">Creating component page build a js</p>
+              <p class="text-gray mb-0">The total number of sessions</p>
             </div>
             <div class="events pt-4 px-3">
               <div class="wrapper d-flex mb-2">
-                <i class="typcn typcn-media-record-outline text-primary mr-2"></i>
+                <i class="ti-control-record text-primary mr-2"></i>
                 <span>Feb 7 2018</span>
               </div>
               <p class="mb-0 font-weight-thin text-gray">Meeting with Alisa</p>
@@ -404,68 +303,53 @@
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="/administrador">
-              <i class="typcn typcn-device-desktop menu-icon"></i>
-              <span class="menu-title">Reportes</span>
-              <div class="badge badge-danger">new</div>
+            <a class="nav-link" href="index.html">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/listadoUsuarios" aria-controls="ui-basic">
-              <i class="typcn typcn-document-text menu-icon"></i>
-              <span class="menu-title">Usuarios</span>
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">UI Elements</span>
               <i class="menu-arrow"></i>
             </a>
-            <!--
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Arrendadores</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Arrendatarios</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
               </ul>
             </div>
-            -->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/listadoMascotas" aria-controls="form-elements">
-              <i class="typcn typcn-film menu-icon"></i>
-              <span class="menu-title">Mascotas</span>
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="icon-columns menu-icon"></i>
+              <span class="menu-title">Form elements</span>
               <i class="menu-arrow"></i>
             </a>
-            <!--
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Basic Elements</a></li>
               </ul>
             </div>
-            -->
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-              <i class="typcn typcn-chart-pie-outline menu-icon"></i>
-              <span class="menu-title">Adopciones</span>
+              <i class="icon-bar-graph menu-icon"></i>
+              <span class="menu-title">Charts</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="charts">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="/adopcionesPendientes">Pendientes</a></li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/adopcionesFinalizadas">
-                    <small>Aprobadas</small><br><small>/ Rechazadas</small>
-
-                  </a>
-                </li>
-
-
-
-
+                <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
               </ul>
             </div>
           </li>
-          <!--
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-              <i class="typcn typcn-th-small-outline menu-icon"></i>
-              <span class="menu-title">Contratos Aprobados</span>
+              <i class="icon-grid-2 menu-icon"></i>
+              <span class="menu-title">Tables</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="tables">
@@ -474,10 +358,9 @@
               </ul>
             </div>
           </li>
-          
-                    <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-              <i class="typcn typcn-compass menu-icon"></i>
+              <i class="icon-contract menu-icon"></i>
               <span class="menu-title">Icons</span>
               <i class="menu-arrow"></i>
             </a>
@@ -489,7 +372,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="typcn typcn-user-add-outline menu-icon"></i>
+              <i class="icon-head menu-icon"></i>
               <span class="menu-title">User Pages</span>
               <i class="menu-arrow"></i>
             </a>
@@ -502,7 +385,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-              <i class="typcn typcn-globe-outline menu-icon"></i>
+              <i class="icon-ban menu-icon"></i>
               <span class="menu-title">Error pages</span>
               <i class="menu-arrow"></i>
             </a>
@@ -514,63 +397,74 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://bootstrapdash.com/demo/polluxui-free/docs/documentation.html">
-              <i class="typcn typcn-mortar-board menu-icon"></i>
+            <a class="nav-link" href="pages/documentation/documentation.html">
+              <i class="icon-paper menu-icon"></i>
               <span class="menu-title">Documentation</span>
             </a>
           </li>
         </ul>
-        -->
-
       </nav>
               <!--  Header End -->
-          <div class="main-panel">
-                <div class="content-wrapper">
+          <div class="categories overflow-hidden">
+                <div >
                 {% block contenido %}
                 
                 {% endblock %}
               </div>
           </div>
-  </div>
-
-  <div>
-        <footer class="footer">
-                  <div class="card">
-                      <div class="card-body">
-                          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2020 <a href="https://www.bootstrapdash.com/" class="text-muted" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
-                              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center text-muted">Free <a href="https://www.bootstrapdash.com/" class="text-muted" target="_blank">Bootstrap dashboard</a> templates from Bootstrapdash.com</span>
-                          </div>
-                      </div>    
-                  </div>        
-              </footer>
-  </div>
-        <!-- partial -->
-      <!-- main-panel ends -->
+  </div>   
     <!-- page-body-wrapper ends -->
+  </div>
   <!-- container-scroller -->
-
-
-<!-- base:js -->
-<script src="{% static 'plantilla/admin/template/vendors/js/vendor.bundle.base.js' %}"></script>
+<!-- plugins:js -->
+<script src="{% static 'plantilla/admin/vendors/js/vendor.bundle.base.js' %}"></script>
 <!-- endinject -->
-
 <!-- Plugin js for this page -->
-<script src="{% static 'plantilla/admin/template/vendors/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'plantilla/admin/vendors/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'plantilla/admin/vendors/datatables.net/jquery.dataTables.js' %}"></script>
+<script src="{% static 'plantilla/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js' %}"></script>
+<script src="{% static 'plantilla/admin/js/dataTables.select.min.js' %}"></script>
 <!-- End plugin js for this page -->
-
 <!-- inject:js -->
-<script src="{% static 'plantilla/admin/template/js/off-canvas.js' %}"></script>
-<script src="{% static 'plantilla/admin/template/js/hoverable-collapse.js' %}"></script>
-<script src="{% static 'plantilla/admin/template/js/template.js' %}"></script>
-<script src="{% static 'plantilla/admin/template/js/settings.js' %}"></script>
-<script src="{% static 'plantilla/admin/template/js/todolist.js' %}"></script>
+<script src="{% static 'plantilla/admin/js/off-canvas.js' %}"></script>
+<script src="{% static 'plantilla/admin/js/hoverable-collapse.js' %}"></script>
+<script src="{% static 'plantilla/admin/js/template.js' %}"></script>
+<script src="{% static 'plantilla/admin/js/settings.js' %}"></script>
+<script src="{% static 'plantilla/admin/js/todolist.js' %}"></script>
 <!-- endinject -->
+<!-- Custom js for this page-->
+<script src="{% static 'plantilla/admin/js/dashboard.js' %}"></script>
+<script src="{% static 'plantilla/admin/js/Chart.roundedBarCharts.js' %}"></script>
+<!-- End custom js for this page-->
 
-<!-- Custom js for this page -->
-<script src="{% static 'plantilla/admin/template/js/dashboard.js' %}"></script>
-<!-- End custom js for this page -->
+
+
+<style>
+    .error {
+      color: red;
+    }
+    .form-control.error {
+      border: 1px solid red;
+    }
+  </style>
+
+
+  {% if messages %}
+    {% for mensaje in messages %}
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                title: "{% if 'error' in mensaje.tags %}Error{% elif 'warning' in mensaje.tags %}Advertencia{% elif 'success' in mensaje.tags %}Éxito{% else %}Información{% endif %}",
+                text: "{{ mensaje|escapejs }}",
+                icon: "{% if 'error' in mensaje.tags %}error{% elif 'warning' in mensaje.tags %}warning{% elif 'success' in mensaje.tags %}success{% else %}info{% endif %}",
+                confirmButtonText: 'Aceptar'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
 </body>
+ </html>
 
-</html>
 
+
+ 

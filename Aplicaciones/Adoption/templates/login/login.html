@@ -2,26 +2,52 @@
 <html lang="en">
 {% load static %}
 
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>PolluxUI Admin</title>
-
-  <!-- base:css -->
-  <link rel="stylesheet" href="{% static 'plantilla/admin/template/vendors/typicons/typicons.css' %}">
-  <link rel="stylesheet" href="{% static 'plantilla/admin/template/vendors/css/vendor.bundle.base.css' %}">
+  <title>Patitas Amigables</title>
+  
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'plantilla/admin/vendors/feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'plantilla/admin/vendors/ti-icons/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'plantilla/admin/vendors/css/vendor.bundle.base.css' %}">
   <!-- endinject -->
-
-  <!-- plugin css for this page -->
-  <!-- (Agregar aquí si se necesita algún CSS adicional para esta página) -->
-  <!-- End plugin css for this page -->
-
   <!-- inject:css -->
-  <link rel="stylesheet" href="{% static 'plantilla/admin/template/css/vertical-layout-light/style.css' %}">
+  <link rel="stylesheet" href="{% static 'plantilla/admin/css/vertical-layout-light/style.css' %}">
   <!-- endinject -->
+  <link rel="shortcut icon" href="{% static 'plantilla/admin/images/favicon.png' %}" />
 
-  <link rel="shortcut icon" href="{% static 'plantilla/admin/template/images/favicon.png' %}" />
+  <style>
+    body {
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+    }
+
+    .form-control.error {
+      border: 1px solid red;
+    }
+
+    
+  </style>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- jQuery Validate -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+
+
+
+
+
+
 </head>
 
 <body>
@@ -32,13 +58,13 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
               <div class="brand-logo">
-                <img src="{% static 'plantilla/admin/template/images/logo-dark.svg' %}" alt="logo">
+                <img src="{% static 'plantilla/admin/images/patitas.png' %}" alt="logo">
               </div>
+     
 
-              <h4>¡Hola! Empecemos</h4>
-              <h6 class="font-weight-light">Inicia sesión para continuar.</h6>
 
-              <form method="post" action="/startSesion">
+         
+               <form method="post" action="/startSesion" id="frm_login">
                 {% csrf_token %}
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Correo Electrónico</label>
@@ -50,16 +76,16 @@
                   <input type="password" class="form-control" id="password" name="password">
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100 py-2 fs-5 mb-4 rounded-2">
+                        <button type="submit" class="btn w-100 py-2 fs-5 mb-4 rounded-2" 
+                style="background-color: rgba(253, 143, 9, 1); border: none; color: white;">
                   Iniciar Sesión
                 </button>
-              </form>
 
+              </form>
               <div class="d-flex align-items-center justify-content-center">
                 <p class="fs-5 mb-0 fw-bold">¿Nuevo usuario?</p>
                 <a class="text-primary fw-bold ms-2" href="/registrarUsuario">Crear una cuenta</a>
               </div>
-
             </div>
           </div>
         </div>
@@ -68,19 +94,60 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
-  <!-- container-scroller -->
+ 
+  <script src="{% static 'plantilla/admin/js/off-canvas.js' %}"></script>
+  <script src="{% static 'plantilla/admin/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'plantilla/admin/js/template.js' %}"></script>
+  <script src="{% static 'plantilla/admin/js/settings.js' %}"></script>
+  <script src="{% static 'plantilla/admin/js/todolist.js' %}"></script>
 
-  <!-- base:js -->
-  <script src="{% static 'plantilla/admin/template/vendors/js/vendor.bundle.base.js' %}"></script>
-  <!-- endinject -->
 
-  <!-- inject:js -->
-  <script src="{% static 'plantilla/admin/template/js/off-canvas.js' %}"></script>
-  <script src="{% static 'plantilla/admin/template/js/hoverable-collapse.js' %}"></script>
-  <script src="{% static 'plantilla/admin/template/js/template.js' %}"></script>
-  <script src="{% static 'plantilla/admin/template/js/settings.js' %}"></script>
-  <script src="{% static 'plantilla/admin/template/js/todolist.js' %}"></script>
-  <!-- endinject -->
+
+<script>
+
+  $("#frm_login").validate({
+    rules: {
+      email: {
+        required: true,
+        email: true,
+        
+      },
+      password: {
+        required: true,
+       
+      }
+    },
+    messages: {
+      email: {
+        required: "Por favor, ingrese su correo electrónico",
+        email: "Por favor, ingrese un correo electrónico válido",
+        
+      },
+      password: {
+        required: "Por favor, ingrese su contraseña",
+        
+      }
+    }
+  });
+
+ 
+</script>
+
+ {% if messages %}
+    {% for mensaje in messages %}
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                title: "{% if 'error' in mensaje.tags %}Error{% elif 'warning' in mensaje.tags %}Advertencia{% elif 'success' in mensaje.tags %}Éxito{% else %}Información{% endif %}",
+                text: "{{ mensaje|escapejs }}",
+                icon: "{% if 'error' in mensaje.tags %}error{% elif 'warning' in mensaje.tags %}warning{% elif 'success' in mensaje.tags %}success{% else %}info{% endif %}",
+                confirmButtonText: 'Aceptar'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+
 </body>
 
 </html>
+        

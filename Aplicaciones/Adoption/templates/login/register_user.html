@@ -1,30 +1,40 @@
 <!doctype html>
-<html lang="en">
-{%load static%}
-
-<!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
+{% load static %}
 <head>
-  <!-- Required meta tags -->
+  <!-- META -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>PolluxUI Admin</title>
+  <title>Patitas Amigables</title>
 
-  <!-- base:css -->
-  <link rel="stylesheet" href="{% static 'plantilla/admin/template/vendors/typicons/typicons.css' %}">
-  <link rel="stylesheet" href="{% static 'plantilla/admin/template/vendors/css/vendor.bundle.base.css' %}">
-  <!-- endinject -->
+  <!-- CSS de la plantilla -->
+  <link rel="stylesheet" href="{% static 'plantilla/admin/vendors/feather/feather.css' %}">
+  <link rel="stylesheet" href="{% static 'plantilla/admin/vendors/ti-icons/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'plantilla/admin/vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'plantilla/admin/css/vertical-layout-light/style.css' %}">
+  <link rel="shortcut icon" href="{% static 'plantilla/admin/images/favicon.png' %}" />
 
-  <!-- plugin css for this page -->
-  <!-- (Agregar aquí si se necesita algún CSS adicional para esta página) -->
-  <!-- End plugin css for this page -->
+  <style>
+    body {
+      background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+    }
 
-  <!-- inject:css -->
-  <link rel="stylesheet" href="{% static 'plantilla/admin/template/css/vertical-layout-light/style.css' %}">
-  <!-- endinject -->
+    .error {
+      color: red;
+      font-size: 0.9rem;
+    }
 
-  <link rel="shortcut icon" href="{% static 'plantilla/admin/template/images/favicon.png' %}" />
+    .form-control.error {
+      border: 1px solid red;
+    }
+
+    
+  </style>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- jQuery Validate -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 </head>
 
 <body>
@@ -32,102 +42,166 @@
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
-          <div class="col-lg-4 mx-auto">
+          <div class="col-lg-5 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo">
-                <img src="../../images/logo-dark.svg" alt="logo">
+
+              <div class="brand-logo text-center mb-3">
+                <img src="{% static 'plantilla/admin/images/patitas.png' %}" alt="logo" style="width:100px;">
               </div>
-              <h4>New here?</h4>
-              <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
 
+              <h4 class="text-center mb-4 fw-bold" style="color: rgb(255, 140, 0);">
+                🐾 Crear cuenta
+              </h4>
 
-
-            <form method="post" action="/registerNewUser">
+              <form method="post" action="/registerNewUser" id="frm_register">
                 {% csrf_token %}
 
-                <div class="mb-3">
-                    <label for="first_name" class="form-label">Nombres</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" required>
-                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="first_name" class="form-label">Nombres</label>
+                      <input type="text" class="form-control" id="first_name" name="first_name">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="last_name" class="form-label">Apellidos</label>
-                    <input type="text" class="form-control" id="last_name" name="last_name" required>
-                </div>
+                    <div class="mb-3">
+                      <label for="last_name" class="form-label">Apellidos</label>
+                      <input type="text" class="form-control" id="last_name" name="last_name">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="phone" class="form-label">Número de Celular</label>
-                    <input type="text" class="form-control" id="phone" name="telefono" required>
-                </div>
+                    <div class="mb-3">
+                      <label for="phone" class="form-label">Número de Celular</label>
+                      <input type="text" class="form-control" id="phone" name="telefono">
+                    </div>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label">Correo Electrónico</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="address" class="form-label">Dirección</label>
-                    <input type="text" class="form-control" id="address" name="direccion">
-                </div>
-
-                <div class="mb-3">
-                    <label for="username" class="form-label">Nombre de Usuario</label>
-                    <input type="text" class="form-control" id="username" name="username" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password2" class="form-label">Confirmar Contraseña</label>
-                    <input type="password" class="form-control" id="password2" name="password2" required>
-                </div>
-
-                <div class="mb-4">
-                    <label for="role" class="form-label">Rol</label>
-                    <select class="form-select" id="role" name="role" required>
-                        <option value="adopter" selected>Adoptante</option>
-                        <option value="owner">Dueño</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-primary w-100 py-2 fs-4 mb-4 rounded-2">Registrarse</button>
-
-                <p class="text-center">
-                    ¿Ya tienes cuenta? <a href="/iniciarSesion" class="text-primary">Iniciar Sesión</a>
-                </p>
-            </form>
-
-
-                <div class="d-flex align-items-center justify-content-center">
-                    <p class="fs-4 mb-0 fw-bold">!Ya tienes una cuenta¡</p>
-                    <a class="text-primary fw-bold ms-2" href="/iniciarSesion">Iniciar Sesion</a>
+                    <div class="mb-3">
+                      <label for="email" class="form-label">Correo Electrónico</label>
+                      <input type="email" class="form-control" id="email" name="email">
+                    </div>
                   </div>
 
-              </div>
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="address" class="form-label">Dirección</label>
+                      <input type="text" class="form-control" id="address" name="direccion">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="username" class="form-label">Nombre de Usuario</label>
+                      <input type="text" class="form-control" id="username" name="username">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" id="password" name="password">
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="password2" class="form-label">Confirmar Contraseña</label>
+                      <input type="password" class="form-control" id="password2" name="password2">
+                    </div>
+                  </div>
+                </div>
+
+                <button type="submit"
+                  class="btn w-100 py-2 fs-5 mb-4 rounded-2"
+                  style="background-color: rgb(255, 140, 0); border: none; color: white;">
+                  Registrarse
+                </button>
+              </form>
+
+              <p class="text-center">
+                ¿Ya tienes cuenta?
+                <a href="/iniciarSesion" class="text-primary">Iniciar Sesión</a>
+              </p>
 
             </div>
           </div>
         </div>
       </div>
-      <!-- content-wrapper ends -->
     </div>
-    <!-- page-body-wrapper ends -->
   </div>
-  <!-- container-scroller -->
-  <!-- base:js -->
-  <script src="{% static 'plantilla/admin/template/vendors/js/vendor.bundle.base.js' %}"></script>
-  <!-- endinject -->
 
-  <!-- inject:js -->
-  <script src="{% static 'plantilla/admin/template/js/off-canvas.js' %}"></script>
-  <script src="{% static 'plantilla/admin/template/js/hoverable-collapse.js' %}"></script>
-  <script src="{% static 'plantilla/admin/template/js/template.js' %}"></script>
-  <script src="{% static 'plantilla/admin/template/js/settings.js' %}"></script>
-  <script src="{% static 'plantilla/admin/template/js/todolist.js' %}"></script>
-  <!-- endinject -->
+  <!-- JS de la plantilla -->
+  <script src="{% static 'plantilla/admin/js/off-canvas.js' %}"></script>
+  <script src="{% static 'plantilla/admin/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'plantilla/admin/js/template.js' %}"></script>
+  <script src="{% static 'plantilla/admin/js/todolist.js' %}"></script>
+
+ <!-- Validación -->
+<script>
+    jQuery.validator.addMethod("noSpace", function(value, element) {
+    return value.trim().indexOf(" ") === -1; 
+  }, "Por favor, ingrese un nombre de usuario sin espacios");
+
+  $("#frm_register").validate({
+    rules: {
+      first_name: { required: true, minlength: 5, maxlength: 50 },
+      last_name: { required: true, minlength: 5, maxlength: 50 },
+      telefono: { required: true, digits: true, minlength: 10, maxlength: 10 },
+      email: { required: true, email: true, minlength: 5, maxlength: 50 },
+      direccion: { required: true, maxlength: 100 },
+      username: { required: true, minlength: 4, maxlength: 20,noSpace: true},
+      password: { required: true, minlength: 6, maxlength: 20 },
+      password2: { required: true, equalTo: "#password" }
+    },
+    messages: {
+      first_name: {
+        required: "Por favor, ingrese sus nombres",
+        minlength: "Por favor, ingrese al menos 5 caracteres ",
+        maxlength: "Por favor, ingrese un máximo de 50 caracteres "
+      },
+      last_name: {
+        required: "Por favor, ingrese sus apellidos",
+        minlength: "Por favor, ingrese al menos 5 caracteres ",
+        maxlength: "Por favor, ingrese un máximo de 50 caracteres "
+      },
+      telefono: {
+        required: "Por favor, ingrese su número de celular",
+        digits: "Por favor, ingrese solo números válidos",
+        minlength: "Por favor, ingrese exactamente 10 dígitos",
+        maxlength: "Por favor, ingrese exactamente 10 dígitos"
+      },
+      email: {
+        required: "Por favor, ingrese su correo electrónico",
+        email: "Por favor, ingrese un correo electrónico válido",
+        minlength: "Por favor, ingrese al menos 5 caracteres ",
+        maxlength: "Por favor, ingrese un máximo de 50 caracteres "
+      },
+      direccion: {
+        required: "Por favor, ingrese su dirección",
+        maxlength: "Por favor, ingrese una dirección con máximo 100 caracteres"
+      },
+      username: {
+        required: "Por favor, ingrese un nombre de usuario",
+        minlength: "Por favor, ingrese al menos 4 caracteres ",
+        maxlength: "Por favor, ingrese un máximo de 20 caracteres ",
+        noSpace: "Por favor, ingrese un nombre de usuario sin espacios"
+      },
+      password: {
+        required: "Por favor, ingrese una contraseña",
+        minlength: "Por favor, ingrese una contraseña con al menos 6 caracteres",
+        maxlength: "Por favor, ingrese una contraseña con máximo 20 caracteres"
+      },
+      password2: {
+        required: "Por favor, ingrese nuevamente la contraseña",
+        equalTo: "Las contraseñas no coinciden"
+      }
+    }
+  });
+</script>
+
+  {% if messages %}
+    {% for mensaje in messages %}
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                title: "{% if 'error' in mensaje.tags %}Error{% elif 'warning' in mensaje.tags %}Advertencia{% elif 'success' in mensaje.tags %}Éxito{% else %}Información{% endif %}",
+                text: "{{ mensaje|escapejs }}",
+                icon: "{% if 'error' in mensaje.tags %}error{% elif 'warning' in mensaje.tags %}warning{% elif 'success' in mensaje.tags %}success{% else %}info{% endif %}",
+                confirmButtonText: 'Aceptar'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
 </body>
-
 </html>
