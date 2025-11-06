@@ -9,6 +9,8 @@ from .models import Pet,PetPhoto,Adoption
 from django.contrib.auth import logout
 import json
 from django.db.models import Count, Q
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -33,9 +35,10 @@ def adoptions(request):
 def registerUser(request):
     return render(request,"login/register_user.html")
 
-def administrador(request):
-    
-       
+@login_required(login_url='/iniciarSesion')
+def administrador(request):    
+    if not hasattr(request.user, 'role') or request.user.role != 'administrator':
+        return redirect('/')
     total_usuarios = User.objects.count()
     total_adoptantes = User.objects.filter(role='adopter').count()
     total_publicadores = User.objects.filter(role='owner').count()
@@ -82,12 +85,7 @@ def administrador(request):
         'grafico_adopciones_json': json.dumps(grafico_adopciones),
         'usuarios_top': usuarios_top,
     }
-    
-   
-
-       
-    
-    
+        
     return render(request,"administrator/index.html",context)
 
    
@@ -422,9 +420,39 @@ def listadoUsuarios(request):
     return render(request,'administrator/listUsers.html',{'users':listUsers})
 
 def adopcionesPendientes(request):
-    listPendingAdoption=Adoption.objects.filter(status='pending')
+    listPendingAdoption = Adoption.objects.filter(status='pending').select_related('adopter', 'pet')
     return render(request,'administrator/listPendingAdoptions.html',{'listPending':listPendingAdoption})
 
 def adopcionesFinalizadas(request):
-    listFinalAdoption = Adoption.objects.exclude(status='pending')
+    listFinalAdoption = Adoption.objects.exclude(status='pending').select_related('adopter', 'pet')
     return render(request,'administrator/listFinalAdoptions.html',{'listFinal':listFinalAdoption})
+
+def perfilUsuarioAdm(request):
+    user = request.user
+    return render(request, 'administrator/editProfile.html', {'user': user})
+
+
+def processEditProfileAdm(request):
+    if request.method == 'POST':
+        user = request.user
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.email = request.POST.get('email')
+        user.address = request.POST.get('address')
+
+        if 'photo_path' in request.FILES:
+            user.photo_path = request.FILES['photo_path']
+
+        new_password = request.POST.get('new_password')
+        if new_password:
+            user.set_password(new_password)  
+
+        user.save()
+
+        if new_password:            
+            update_session_auth_hash(request, user)
+       
+        messages.success(request, 'Perfil actualizado correctamente.')
+        return redirect('/administrador')
+
+    return redirect('/administrador')

@@ -21,14 +21,16 @@
             {% for adoptions in listFinal %}
             <tr>
                 <td>{{ adoptions.id }}</td>
-                <td>{{ adoptions.adopter_id }}</td>
-                <td>{{ adoptions.pet_id }}</td>
+                <td>{{ adoptions.adopter.first_name }} {{ adoptions.adopter.last_name }}</td>
+
+                <td> {{ adoptions.pet.name }}</td>
+
                 <td>{{ adoptions.request_date }}</td>
                 <td>
                     {% if adoptions.contract_path %}
                         <a href="javascript:;" class="btn btn-info btn-sm"
                            onclick="verDocumento('{{ adoptions.contract_path.url }}')">
-                            📄 Ver contrato
+                             <i class="fa fa-eye"></i>    Ver contrato
                         </a>
                     {% else %}
                         <span class="text-muted">Sin contrato</span>

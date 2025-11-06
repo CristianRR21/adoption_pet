@@ -1,0 +1,82 @@
+{% extends "administrator/plantilla.html" %}
+{% block contenido %}
+
+<div class="container mt-5 mb-5">
+  <div class="card shadow-lg rounded-4">
+    <div class="card-header bg-success text-white text-center fw-bold">
+      <i class="fa fa-user"></i>Perfil de Usuario
+    </div>
+    <div class="card-body p-4">
+
+      <form method="post" action="/processEditProfileAdm" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Nombres:</label>
+          <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Apellidos:</label>
+          <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Correo electrónico:</label>
+          <input type="email" name="email" class="form-control" value="{{ user.email }}" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold">Dirección:</label>
+          <input type="text" name="address" class="form-control" value="{{ user.address }}">
+        </div>
+
+
+        <div class="text-center mb-4">
+          {% if user.photo_path %}
+            <img src="{{ user.photo_path.url }}" alt="Foto de perfil" 
+                 class="rounded-circle border shadow-sm" width="150" height="150">
+          {% else %}
+            <img alt="Sin foto" 
+                 width="150" height="150">
+          {% endif %}
+
+          <div class="mt-2">
+            <label class="form-label fw-bold">Cambiar foto:</label>
+            <input type="file" name="photo_path" id="photo_path" accept="image/*" >
+          </div>
+        </div>
+
+
+        <div class="mb-3">
+          <label class="form-label fw-bold text-danger">Cambiar contraseña:</label>
+          <input type="password" name="new_password" class="form-control" placeholder="Nueva contraseña (opcional)">
+          <small class="text-muted">Dejar este campo vacío si no desea cambiarla.</small>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success px-4">Guardar Cambios</button>
+          <a href="/administrador" class="btn btn-secondary px-4">Cancelar</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $("#photo_path").fileinput({
+    language: "es",
+    allowedFileExtensions: ["jpg", "jpeg", "png"],
+    showCaption: false,
+    dropZoneEnabled: true,
+    showClose: false,
+    maxFileCount: 1,
+
+  });
+</script>
+
+{% endblock %}
+
+

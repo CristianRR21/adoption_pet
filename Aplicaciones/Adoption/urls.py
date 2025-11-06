@@ -23,6 +23,9 @@ urlpatterns = [
     path('approvedAdoption/<id>/',views.approvedAdoption),
     path('rejectAdoption/<id>/',views.rejectAdoption),
     path('adopcionesFinalizadas',views.adopcionesFinalizadas),
+    path('processEditProfileAdm', views.processEditProfileAdm),
+    path('perfilUsuarioAdm', views.perfilUsuarioAdm),
+
     
     
     
