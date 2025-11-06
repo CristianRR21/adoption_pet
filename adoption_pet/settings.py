@@ -161,3 +161,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = (os.path.join(BASE_DIR, 'adoption_pet/media/'))
 
 
+# Configuración de archivos estáticos para Render
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Asegura compatibilidad con Whitenoise (sirve los archivos estáticos en producción)
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+# Comprime y cachea archivos estáticos
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

@@ -4,3 +4,4 @@ gunicorn==23.0.0
 whitenoise==6.9.0
 django-pwa==2.0.1
 pillow==11.1.0
+
