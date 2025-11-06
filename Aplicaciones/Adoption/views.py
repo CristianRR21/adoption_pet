@@ -23,6 +23,10 @@ def iniciarSesion(request):
 def adoptions(request):
     
     pets= Pet.objects.filter(status='available')
+    
+    if request.user.is_authenticated:
+        pets = pets.exclude(publisher_id=request.user)
+    
     publications=[]
     for pet in pets:
         image_path=PetPhoto.objects.filter(pet=pet).order_by('order').first()
@@ -184,11 +188,18 @@ def savePublication(request):
     
     if request.user.is_authenticated:    
         name=request.POST['name']
-        species=request.POST['species']
-        breed=request.POST['breed']
+        species=request.POST['species']        
+        breed=request.POST['breed']        
+        if breed == 'other':
+            breed = request.POST.get('breed_other') 
+        
         age=request.POST['age']
         gender=request.POST['gender']
+        
         color=request.POST['color']
+        if color == 'other':
+            color = request.POST.get('color_other') 
+            
         description=request.POST['description']
         image_path= request.FILES.getlist('image_path[]')   
         publisher_id= request.user.id
@@ -335,6 +346,11 @@ def eliminarPublicacion(request, id):
     else:
         return redirect('/iniciarSesion')
     
+
+
+
+
+    
     
 def approvedAdoption(request, id):
     if request.user.is_authenticated:
@@ -363,7 +379,7 @@ def rejectAdoption(request, id):
         
         pet.save()
         
-        messages.success(request, "Adopcion aprobada correctamente.")
+        messages.success(request, "Adopcion rechazada correctamente.")
         return redirect('/adopcionesPendientes')
     else:
         return redirect('/iniciarSesion')

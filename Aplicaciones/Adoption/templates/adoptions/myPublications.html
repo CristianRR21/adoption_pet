@@ -11,6 +11,7 @@
                 <th>Descripción</th>
                 <th>Género</th>
                 <th>Edad</th>
+                <th>Estado</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -34,6 +35,18 @@
                 <td>{{ pub.pet.gender }}</td>
                 <td>{{ pub.pet.age }}</td>
                 <td>
+                    {% if pub.pet.status == 'available' %}
+                        <span class="badge text-bg-secondary">Sin adoptar</span>
+                    {% elif pub.pet.status == 'adopted' %}
+                        <span class="badge text-bg-success">Adoptado</span>
+                    {% elif pub.pet.status == 'pending' %}
+                        <span class="badge text-bg-warning">En proceso de adopcion</span>
+
+                    {% endif %}
+                </td>
+                <td>
+                    {% if pub.pet.status == 'available' %}
+
                     <a href="editarPublicacion/{{pub.pet.id}}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
 
 
@@ -41,6 +54,30 @@
                         onclick="confirmarEliminacion('/eliminarPublicacion/{{pub.pet.id}}')">
                         <i class="fa fa-trash"></i>
                     </a>
+                    {% elif pub.pet.status == 'adopted' %}
+
+                    <a href="#" class="btn btn-warning disabled" tabindex="-1" aria-disabled="true">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a href="#" class="btn btn-danger disabled" tabindex="-1" aria-disabled="true">
+                        <i class="fa fa-trash"></i>
+                    </a>
+
+                    {% elif pub.pet.status == 'pending' %}
+
+
+
+                    <a href="#" class="btn btn-warning disabled" tabindex="-1" aria-disabled="true">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a href="#" class="btn btn-danger disabled" tabindex="-1" aria-disabled="true">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                                    
+
+                    {% endif %}
+
+
 
 
                 </td>

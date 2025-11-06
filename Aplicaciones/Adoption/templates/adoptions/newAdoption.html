@@ -1,88 +1,91 @@
 {% extends "adoptions/plantilla.html" %}
+{% load static %}
+
 {% block contenido %}
-<div class="container py-4">
+
+<div class="container mt-4 mb-5">
   <h2 class="text-center mb-4 text-success fw-bold">🐾 Información de la mascota</h2>
 
-  <div class="card shadow-sm p-4">
+  <!-- Información de la mascota -->
+  <div class="card shadow-sm p-4 mb-4">
     <h4 class="mb-3 text-primary">{{ pet.name }}</h4>
-    <p><strong>Edad:</strong> {{ pet.age }}</p>
-    <p><strong>Raza:</strong> {{ pet.breed }}</p>
-    <p><strong>Descripción:</strong> {{ pet.description }}</p>
+    <div class="row mb-2">
+      <div class="col-md-6"><strong>Edad:</strong> {{ pet.age }} años</div>
+      <div class="col-md-6"><strong>Raza:</strong> {{ pet.breed }}</div>
+    </div>
+
+     <div class="row mb-2">
+      <div class="col-md-6"><strong>Descripcion:</strong> {{ pet.description}}</div>
+      <div class="col-md-6"><strong>Color:</strong> {{ pet.color }}</div>
+    </div>
   </div>
 
-  <div class="mt-4">
-    <h5 class="text-secondary">Fotos</h5>
-    
-    <div class="d-flex flex-wrap gap-3"> 
-
-    {% for photo in photos %}
-        <img src="{{ photo.image_path.url }}" alt="Foto de {{ pet.name }}" class="rounded" width="200">
-      
-    {% endfor %}
-
+  <!-- Fotos -->
+  <div class="mb-4">
+    <h5 class="text-secondary mb-3">Fotos</h5>
+    <div class="d-flex flex-wrap gap-3">
+      {% for photo in photos %}
+        <img src="{{ photo.image_path.url }}" alt="Foto de {{ pet.name }}" class="rounded border" style="width:200px; height:200px; object-fit:cover;">
+      {% empty %}
+        <p class="text-muted">No hay fotos disponibles para esta mascota.</p>
+      {% endfor %}
     </div>
-
-
   </div>
 
-  <div class="container">
-    <h1>Formulario de Adopcion</h1>
-    <h4>Informacion de adoptante</h4>
+  <!-- Formulario de adopción -->
+  <div class="card shadow-sm p-4">
+    <h4 class="mb-3 text-success">Formulario de Adopción</h4>
 
-    <div class="row">
-        <div class="col md-6">
-            <label for="">Nombres :</label>
-            <input type="text" readonly  class="form-control" value="{{ user.first_name }} ">
-
-        </div>
-
-        <div class="col md-6">
-            <label for="">Apellidos :</label>
-
-            <input type="text" readonly class="form-control"  value="{{ user.last_name }} ">
-
-            
-        </div>
+    <!-- Información del adoptante -->
+    <h5 class="mb-3 text-primary">Información del adoptante</h5>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label fw-semibold">Nombres</label>
+        <input type="text" class="form-control" readonly value="{{ user.first_name }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label fw-semibold">Apellidos</label>
+        <input type="text" class="form-control" readonly value="{{ user.last_name }}">
+      </div>
     </div>
-    <div class="row">
-
-        <div class="col md-6">
-            <label for=""># Contacto :</label>
-
-            <input type="text" readonly  class="form-control" value="{{ user.phone }} ">
-            
-        </div>
-        
-        <div class="col md-6">
-            <label for="">Direccion :</label>
-
-            <input type="text" readonly  class="form-control" value="{{ user.address }} ">
-
-            
-        </div>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="form-label fw-semibold"># Contacto</label>
+        <input type="text" class="form-control" readonly value="{{ user.phone }}">
+      </div>
+      <div class="col-md-6">
+        <label class="form-label fw-semibold">Dirección</label>
+        <input type="text" class="form-control" readonly value="{{ user.address }}">
+      </div>
     </div>
-    <h4>Contrato de Adopcion</h4>
-    <small>*Descargue el siguiente pdf , el mismo que debera subirlo una vez que lo llene*</small>
-  <a href="{{ MEDIA_URL }}adoptions/contrato.pdf" class="btn btn-outline-primary" download>
-        📄 Descargar contrato de adopción
-      </a>    
-    <form action="/saveAdoption" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        
 
-        <input type="hidden" name="pet" id="pet" value="{{pet.id}}">
-        <input type="file" name="contract" id="contract">
+    <!-- Contrato de adopción -->
+    <h5 class="mb-3 text-primary">Contrato de Adopción</h5>
+    <small class="text-muted d-block mb-2">*Descargue el siguiente PDF, llénelo y luego súbalo aquí*</small>
+    <a href="{% static 'plantilla/adoptions/contrato.pdf' %}" class="btn btn-outline-primary" download>
+        Descargar contrato de adopción
+    </a>
 
-        <button type="submit" class="btn btn-primary">Enviar</button>
 
+    <!-- Subir contrato -->
+    <form action="/saveAdoption" method="POST" enctype="multipart/form-data" id="frm_adoption">
+      {% csrf_token %}
+      <input type="hidden" name="pet" value="{{ pet.id }}">
+      <div class="mb-3">
+        <label for="contract" class="form-label fw-semibold">Subir contrato firmado (PDF)</label>
+        <input type="file" name="contract" id="contract" class="form-control" accept="application/pdf" required>
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-success px-4"><i class="bi bi-check-circle"></i> Enviar</button>
+      </div>
     </form>
-
-
   </div>
 </div>
 
+<!-- Script para validación de archivo PDF -->
+
 <script>
-  $("#contract_path").fileinput({
+  $("#contract").fileinput({
     language: "es",
     allowedFileExtensions: ["pdf"],
     showCaption: false,
@@ -92,4 +95,24 @@
     browseClass: "btn btn-primary",
   });
 </script>
+
+<script>
+  $(document).ready(function() {
+    $("#frm_adoption").validate({
+      rules: {
+        contract: {
+          required: true,
+          extension: "pdf"
+        }
+      },
+      messages: {
+        contract: {
+          required: "Debe subir el contrato firmado",
+          extension: "Solo se permite un archivo PDF"
+        }
+      }
+    });
+  });
+</script>
+
 {% endblock %}

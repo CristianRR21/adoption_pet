@@ -14,7 +14,9 @@
                 <th>Género</th>
                 <th>Edad</th>
                 <th>Estado</th>
+                <!--
                 <th>Acción</th>
+                -->
             </tr>
         </thead>
         <tbody>
@@ -62,25 +64,57 @@
                         <span class="badge text-bg-secondary">Sin adoptar</span>
                     {% elif pet.pet.status == 'adopted' %}
                         <span class="badge text-bg-success">Adoptado</span>
+                     {% elif pet.pet.status == 'pending' %}
+                        <span class="badge text-bg-warning">En proceso de adopcion</span>
                     {% endif %}
                 </td>
 
+                <!--
                 <td>
-
+                    {% if pet.pet.status == 'available' %}
 
                     <a href="#" class="btn btn-danger btn-sm" title="Eliminar petlicación"
                         onclick="confirmarEliminacion('/eliminarPublicacion/{{pet.pet.id}}')">
                         <i class="fa fa-trash"></i>
                     </a>
+                    {% elif pet.pet.status == 'adopted' %}
+                      <a href="#" class="btn btn-danger disabled" >
+                        <i class="fa fa-trash"></i>
+                    </a>
 
+                     {% elif pet.pet.status == 'pending' %}
+                      <a href="#" class="btn btn-danger disabled" >
+                        <i class="fa fa-trash"></i>
+                    </a>
+                    {% endif %}
 
                 </td>
+                -->
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 
+
+<script>
+                function confirmarEliminacion(url){
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: '¡Esta acción no se puede deshacer!',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = url;
+                            }
+                        });
+                    }
+ </script>
 
 <script>
 
