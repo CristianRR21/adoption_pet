@@ -439,25 +439,98 @@ def perfilUsuarioAdm(request):
 @admin_required
 def processEditProfileAdm(request):
     if request.method == 'POST':
-        user = request.user
-        user.first_name = request.POST.get('first_name')
-        user.last_name = request.POST.get('last_name')
-        user.email = request.POST.get('email')
-        user.address = request.POST.get('address')
+        user = request.user        
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        phone = request.POST.get('telefono')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        username = request.POST.get('username')
+        new_password = request.POST.get('new_password')
+
+        if User.objects.exclude(id=user.id).filter(email=email).exists():
+            messages.error(request, "El correo ya está registrado.")
+            return redirect('/perfilUsuario')
+
+        if User.objects.exclude(id=user.id).filter(username=username).exists():
+            messages.error(request, "El nombre de usuario ya existe.")
+            return redirect('/perfilUsuario')
+
+        if User.objects.exclude(id=user.id).filter(phone=phone).exists():
+            messages.error(request, "El número de teléfono ya está registrado.")
+            return redirect('/perfilUsuario')
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.phone = phone
+        user.email = email
+        user.address = address
+        user.username = username
 
         if 'photo_path' in request.FILES:
             user.photo_path = request.FILES['photo_path']
 
-        new_password = request.POST.get('new_password')
         if new_password:
-            user.set_password(new_password)  
+            user.set_password(new_password)
 
         user.save()
 
-        if new_password:            
+        if new_password:
             update_session_auth_hash(request, user)
        
         messages.success(request, 'Perfil actualizado correctamente.')
         return redirect('/administrador')
 
     return redirect('/administrador')
+
+
+def perfilUsuario(request):
+    user = request.user
+    return render(request, 'adoptions/editProfile.html', {'user': user})
+
+def processEditProfile(request):
+    if request.method == 'POST':
+        user = request.user
+        
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        phone = request.POST.get('telefono')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        username = request.POST.get('username')
+        new_password = request.POST.get('new_password')
+
+        if User.objects.exclude(id=user.id).filter(email=email).exists():
+            messages.error(request, "El correo ya está registrado.")
+            return redirect('/perfilUsuario')
+
+        if User.objects.exclude(id=user.id).filter(username=username).exists():
+            messages.error(request, "El nombre de usuario ya existe.")
+            return redirect('/perfilUsuario')
+
+        if User.objects.exclude(id=user.id).filter(phone=phone).exists():
+            messages.error(request, "El número de teléfono ya está registrado.")
+            return redirect('/perfilUsuario')
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.phone = phone
+        user.email = email
+        user.address = address
+        user.username = username
+
+        if 'photo_path' in request.FILES:
+            user.photo_path = request.FILES['photo_path']
+
+        if new_password:
+            user.set_password(new_password)
+
+        user.save()
+
+        if new_password:
+            update_session_auth_hash(request, user)
+
+        messages.success(request, "Perfil actualizado correctamente.")
+        return redirect('/perfilUsuario')
+
+    return redirect('/perfilUsuario')

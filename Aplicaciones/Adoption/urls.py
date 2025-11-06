@@ -25,6 +25,9 @@ urlpatterns = [
     path('adopcionesFinalizadas',views.adopcionesFinalizadas),
     path('processEditProfileAdm', views.processEditProfileAdm),
     path('perfilUsuarioAdm', views.perfilUsuarioAdm),
+    path('perfilUsuario', views.perfilUsuario),
+    path('processEditProfile', views.processEditProfile),
+    
 
     
     

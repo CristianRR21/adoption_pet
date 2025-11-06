@@ -17,8 +17,8 @@
             {% for user in users %}
             <tr>
                 <td style="width:120px; height:120px; text-align:center;">
-                    {% if user.fotografia %}
-                        <img src="{{ user.fotografia.url }}" 
+                    {% if user.photo_path %}
+                        <img src="{{ user.photo_path.url }}" 
                              alt="Foto de {{ user.first_name }}" 
                              class="img-thumbnail rounded" 
                              style="width: 90px; height: 90px; object-fit: cover;">
