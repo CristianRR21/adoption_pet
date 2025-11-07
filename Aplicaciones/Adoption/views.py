@@ -502,7 +502,7 @@ def processEditProfileAdm(request):
 
     return redirect('/administrador')
 
-
+#validate
 def perfilUsuario(request):
     if request.user.is_authenticated:          
     
