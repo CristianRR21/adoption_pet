@@ -182,7 +182,10 @@ def nuevaAdopcion(request):
     return render(request,'adoptions/newAdoptions.html')
 
 def nuevaPublicacion(request):
-    return render(request,'adoptions/newPublication.html')
+    if request.user.is_authenticated:          
+        return render(request,'adoptions/newPublication.html')
+    else:
+        return redirect('/iniciarSesion')
 
 def savePublication(request):
     

@@ -5,6 +5,9 @@ adoption_pet/settings.py
 *.py[cod]
 __pycache__/
 *$py.class
+__pycache__/
+*.pyc
+
 
 # Entornos virtuales
 venv/
