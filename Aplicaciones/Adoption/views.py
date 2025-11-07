@@ -504,8 +504,12 @@ def processEditProfileAdm(request):
 
 
 def perfilUsuario(request):
-    user = request.user
-    return render(request, 'adoptions/editProfile.html', {'user': user})
+    if request.user.is_authenticated:          
+    
+        user = request.user
+        return render(request, 'adoptions/editProfile.html', {'user': user})
+    return redirect('/')
+    
 
 def processEditProfile(request):
     if request.method == 'POST':
