@@ -24,7 +24,7 @@ db.sqlite3
 *.log
 
 # Archivos de medios subidos
-media/
+#media/
 uploads/
 
 # Archivos estáticos compilados
